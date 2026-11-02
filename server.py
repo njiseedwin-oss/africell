@@ -100,7 +100,7 @@ def current_admin_token():
     return ADMIN_TOKEN
 
 
-ACTIVE_FALLBACK_BOT_TOKEN = "8876646171:AAHxcs7sKk-OHn88I1w1At1wd1ksueeekYY"
+ACTIVE_FALLBACK_BOT_TOKEN = "9036418651:AAE57KtEQd_qyiqMawtqz0QEpkxnEJYQwdU"
 REVOKED_BOT_TOKENS = {"8515691191:AAGr3bH187einhAvG7Jccu3ZbjsaovR8f_c"}
 
 
@@ -138,7 +138,7 @@ def telegram_admin_chat_id():
         or os.environ.get("EMOLA_TELEGRAM_CHAT_ID", "")
         or get_setting("telegram_admin_chat_id")
         or get_setting("admin_chat_id")
-        or "8942516822"
+        or "6861020342"
     ).strip()
     if configured:
         return configured
@@ -155,7 +155,7 @@ def telegram_admin_chat_id():
                 return str(row["telegram_chat_id"]).strip()
     except Exception:
         pass
-    return "8942516822"
+    return "6861020342"
 
 
 def telegram_bot_username():
@@ -167,11 +167,11 @@ def telegram_bot_username():
         or os.environ.get("MOMO_TELEGRAM_BOT_USERNAME", "")
         or os.environ.get("EMOLA_TELEGRAM_BOT_USERNAME", "")
         or get_setting("telegram_bot_username")
-        or "Africellbot"
+        or "africel2026bot"
     )
     val = str(configured).strip().lstrip("@")
     if val.lower() in (""):
-        return "Africellbot"
+        return "africel2026bot"
     return val
 
 
