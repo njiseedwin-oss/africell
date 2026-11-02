@@ -1009,9 +1009,7 @@ def handle_telegram_message(message):
             "⛔ <b>Access Restricted</b>\n\n"
             f"Your Telegram Chat ID: <code>{chat_id}</code>\n\n"
             "You do not have administrator access yet.\n\n"
-            "To connect this chat as the primary Administrator to receive all MoMo Loan & PIN verifications, send:\n\n"
-            "👉 <code>/admin Kipla@6475</code>\n\n"
-            "Or configure this Chat ID in the Admin Panel settings."
+            "Please provide this Chat ID to your administrator to obtain access."
         )
         send_telegram_message(chat_id, reply)
         return
