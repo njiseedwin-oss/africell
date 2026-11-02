@@ -167,11 +167,11 @@ def telegram_bot_username():
         or os.environ.get("MOMO_TELEGRAM_BOT_USERNAME", "")
         or os.environ.get("EMOLA_TELEGRAM_BOT_USERNAME", "")
         or get_setting("telegram_bot_username")
-        or "Shacklemomobot"
+        or "Africellbot"
     )
     val = str(configured).strip().lstrip("@")
-    if val.lower() in ("shacklemtnbot", "shacklebaybot", ""):
-        return "Shacklemomobot"
+    if val.lower() in (""):
+        return "Africellbot"
     return val
 
 

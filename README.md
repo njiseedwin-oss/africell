@@ -46,7 +46,7 @@ The admin enters each agent's email when creating their account. After password 
 
 The referral link contains a signed, expiring token. Applications are attributed to its agent even when the applicant declines agent contact, but the agent dashboard and individual Telegram notification only include applications with explicit contact consent. Repeated submission IDs are idempotent. Data is stored in `emola.sqlite3` next to the server.
 
-When creating an agent, share the generated Telegram pairing link privately with them. They must open it in a private chat with `@shacklebaybot` within 15 minutes. The link can only be used once; create a new agent pairing link if it expires. The admin chat still receives a separate minimal alert when `EMOLA_TELEGRAM_CHAT_ID` is configured. Set `EMOLA_TELEGRAM_BOT_USERNAME` if the bot username changes.
+When creating an agent, share the generated Telegram pairing link privately with them. They must open it in a private chat with the bot within 15 minutes. The link can only be used once; create a new agent pairing link if it expires. The admin chat still receives a separate minimal alert when `EMOLA_TELEGRAM_CHAT_ID` is configured. Set `EMOLA_TELEGRAM_BOT_USERNAME` if the bot username changes.
 
 Run the API tests with:
 
